@@ -1,20 +1,34 @@
 let CheminRepertoire = document.location.href.split('/');
 let regex = /\?[a-zA-Z0-9=&éè%]*/gmi;
 let maPage = CheminRepertoire[CheminRepertoire.length - 1].replace(regex, "");
-if (maPage.indexOf("-") > 0) {
-  maPage = maPage.substring(0, maPage.indexOf("-"));
-}
+/*if (maPage.indexOf("#") > 0) {
+  maPage = maPage.substring(0, maPage.indexOf("#"));
+}*/
 let item;
+let idForItem;
 
-if (maPage == "" || maPage == "#") {
-  item = document.getElementById("index");
+console.log(maPage);
+
+if ((maPage == "" || maPage == "#") && CheminRepertoire.length == 4) {
+	idForItem = "index";
+}
+else if ((maPage != "" || maPage != "#") && CheminRepertoire.length == 4) {
+	idForItem = CheminRepertoire[CheminRepertoire.length - 1];
+}
+else if ((maPage == "" || maPage == "#") && CheminRepertoire[CheminRepertoire.length - 2] != ""){
+	idForItem = CheminRepertoire[CheminRepertoire.length - 3];
 }
 else {
-  item = document.getElementById(CheminRepertoire[CheminRepertoire.length - 2]);
+	idForItem = CheminRepertoire[CheminRepertoire.length - 3];
 }
 
+if (idForItem.indexOf("#") > 0) {
+	idForItem = idForItem.substring(0, idForItem.indexOf("#"));
+}
+item = document.getElementById(idForItem);
+
 if (item != null) {
-  item.classList.add("active");
+  	item.classList.add("active");
 }
 
 (function ($) {

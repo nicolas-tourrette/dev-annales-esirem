@@ -1,0 +1,43 @@
+{# templates/pages/informations.html.twig #}
+
+{% extends "index.html.twig" %}
+
+{% block title %}
+Informations - {{ parent() }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    Informations
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Informations</strong>
+        </div>
+        <div class="card-body">
+            <div>
+                <div>
+                    <h1 class="pb-2 display-4">Informations du site</h1>
+                </div>
+                <div>
+                    <p>
+                        Sur cette nouvelle version, blablabla...
+                        <ul class="vue-lists">
+                            <li>...</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

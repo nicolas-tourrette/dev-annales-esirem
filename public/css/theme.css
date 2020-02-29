@@ -5140,21 +5140,28 @@ section {
 
 .au-alert > i {
     font-size: 30px;
-    color: #00ad5f;
     vertical-align: middle;
     margin-right: 10px;
 }
 
 .au-alert .content {
     font-size: 16px;
-    color: #808080;
 }
 
-.au-alert-success {
+.au-alert-success, .au-alert-success > i {
+    color: #00ad5f;
     background: #e5f6eb;
     border-color: #d9f1e3;
     border-left-color: #00ad5f;
 }
+
+.au-alert-warning, .au-alert-warning > i {
+    color: #856404;
+    background: #fff3cd;
+    border-color: #ffeeba;
+    border-left-color: #856404;
+}
+
 
 .au-alert--70per {
     width: 70.5%;
@@ -14655,6 +14662,6 @@ section {
     height: 400px;
 }
 
-.vue-lists ul, .vue-lists ol {
+.vue-lists {
     padding-left: 30px;
 }
