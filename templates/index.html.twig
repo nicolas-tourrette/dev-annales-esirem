@@ -12,7 +12,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>{% block title %}ESIREM{% endblock %}</title>
+    <title>{% block title %}Annales ESIREM{% endblock %}</title>
 
     <!-- Fontfaces CSS-->
     {% block stylesheets %}
@@ -45,45 +45,39 @@
                         <small style="text-transform: none;">ESIREM | uB</small></h1>
                     </div>
                     <div class="header__tool">
-                        <div class="header-button-item has-noti js-item-menu">
+                        <div class="header-button-item {% if listNotifications|length > 0 %} has-noti {% endif %} js-item-menu">
                             <i class="zmdi zmdi-notifications"></i>
                             <div class="notifi-dropdown js-dropdown">
                                 <div class="notifi__title">
-                                    <p>You have 3 Notifications</p>
+                                    <p>Vous avez {{ listNotifications|length }} notification{% if listNotifications|length > 0 %}s{% endif %}.</p>
                                 </div>
+                                {% for notification in listNotifications %}
                                 <div class="notifi__item">
-                                    <div class="bg-c1 img-cir img-40">
-                                        <i class="zmdi zmdi-email-open"></i>
+                                    <div class="badge-{{ notification.category }} img-cir img-40">
+                                        <i class="zmdi zmdi-{{ notification.icon }}"></i>
                                     </div>
                                     <div class="content">
-                                        <p>You got a email notification</p>
-                                        <span class="date">April 12, 2018 06:50</span>
+                                        <p>{{ notification.message }}</p>
+                                        <span class="date">{{ notification.date|date("d/m/Y") }}</span>
                                     </div>
                                 </div>
+                                {% else %}
                                 <div class="notifi__item">
-                                    <div class="bg-c2 img-cir img-40">
-                                        <i class="zmdi zmdi-account-box"></i>
+                                    <div class="badge-secondary img-cir img-40">
+                                        <i class="zmdi zmdi-notifications-none"></i>
                                     </div>
                                     <div class="content">
-                                        <p>Your account has been blocked</p>
-                                        <span class="date">April 12, 2018 06:50</span>
+                                        <p>Bon travail, aucune notification !</p>
+                                        <span class="date">{{ "now"|date("d/m/Y") }}</span>
                                     </div>
                                 </div>
-                                <div class="notifi__item">
-                                    <div class="bg-c3 img-cir img-40">
-                                        <i class="zmdi zmdi-file-text"></i>
-                                    </div>
-                                    <div class="content">
-                                        <p>You got a new file</p>
-                                        <span class="date">April 12, 2018 06:50</span>
-                                    </div>
-                                </div>
+                                {% endfor %}
                                 <div class="notifi__footer">
-                                    <a href="#">All notifications</a>
+                                    <a href="#">Voir toutes les notifications</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="header-button-item js-item-menu">
+                        {# <div class="header-button-item js-item-menu">
                             <i class="zmdi zmdi-settings"></i>
                             <div class="setting-dropdown js-dropdown">
                                 <div class="account-dropdown__body">
@@ -119,48 +113,80 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>#}
                         <div class="account-wrap">
                             <div class="account-item account-item--style2 clearfix js-item-menu">
+                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                                 <div class="image">
-                                    <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                    <img src="{#{ assert(app.user.profilimage) }#}" alt="{#{ app.user.name }#}" />
                                 </div>
                                 <div class="content">
-                                    <a class="js-acc-btn" href="#">john doe</a>
+                                    <a class="js-acc-btn" href="#">{#{ app.user.name }#}</a>
                                 </div>
                                 <div class="account-dropdown js-dropdown">
                                     <div class="info clearfix">
                                         <div class="image">
                                             <a href="#">
-                                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                <img src="{#{ assert(app.user.profilimage) }#}" alt="{#{ app.user.name }#}" />
                                             </a>
                                         </div>
                                         <div class="content">
                                             <h5 class="name">
-                                                <a href="#">john doe</a>
+                                                <a href="#">{#{ app.user.name }#}</a>
                                             </h5>
-                                            <span class="email">johndoe@example.com</span>
+                                            <span class="email">{#{ app.user.email }#}</span>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__body">
                                         <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-account"></i>Account</a>
+                                            <a href="{#{ path('') }#}">
+                                                <i class="zmdi zmdi-account"></i>Mon compte</a>
                                         </div>
                                         <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-settings"></i>Setting</a>
+                                            <a href="{#{ path('') }#}">
+                                                <i class="zmdi zmdi-settings"></i>Paramètres</a>
                                         </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                        <div class="account-dropdown__item account-dropdown__separated">
+                                            <a href="{#{ path('') }#}">
+                                                <i class="zmdi zmdi-key"></i>Console administrateur</a>
                                         </div>
+                                        {% endif %}
                                     </div>
                                     <div class="account-dropdown__footer">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-power"></i>Logout</a>
+                                        <a href="{#{ path('') }#}">
+                                            <i class="zmdi zmdi-power"></i>Déconnexion</a>
                                     </div>
                                 </div>
+                                {% else %}
+                                <div class="image">
+                                    <img src="img/user.png" alt="Invité" />
+                                </div>
+                                <div class="content">
+                                    <a class="js-acc-btn" href="#">Invité</a>
+                                </div>
+                                <div class="account-dropdown js-dropdown">
+                                    <div class="info clearfix">
+                                        <div class="image">
+                                            <a href="#">
+                                                <img src="img/user.png" alt="Invité" />
+                                            </a>
+                                        </div>
+                                        <div class="content">
+                                            <h5 class="name">
+                                                <a href="#">Invité</a>
+                                            </h5>
+                                            <span class="email">Utilisateur non enregistré</span>
+                                        </div>
+                                    </div>
+                                    <div class="account-dropdown__body">
+                                        <div class="account-dropdown__item">
+                                            <a href="{#{ path('') }#}">
+                                                <i class="zmdi zmdi-power"></i>Se connecter</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                
                             </div>
                         </div>
                     </div>
