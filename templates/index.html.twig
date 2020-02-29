@@ -17,21 +17,14 @@
     <!-- Fontfaces CSS-->
     {% block stylesheets %}
     <link href="css/font-face.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-
+    <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    
     <!-- Bootstrap CSS-->
     <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
     <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
@@ -183,15 +176,17 @@
                     <div class="col-md-12">
                         <div class="au-breadcrumb3">
                             <div class="au-breadcrumb-left">
-                                <span class="au-breadcrumb-span">You are here:</span>
+                                <span class="au-breadcrumb-span">Vous êtes ici :</span>
                                 <ul class="list-unstyled list-inline au-breadcrumb__list">
                                     <li class="list-inline-item active">
-                                        <a href="{{ path('index') }}">Accueil</a>
+                                        <a href="{{ path('index') }}">Annales ESIREM</a>
                                     </li>
                                     <li class="list-inline-item seprate">
                                         <span>/</span>
                                     </li>
-                                    <li class="list-inline-item">Dashboard</li>
+                                    {% block breadcrumb %}
+                                    <li class="list-inline-item">Accueil</li>
+                                    {% endblock %}
                                 </ul>
                             </div>
                         </div>
@@ -201,12 +196,17 @@
                     <div class="col-md-12">
                         <div class="welcome2-inner m-t-60">
                             <div class="welcome2-greeting">
-                                <h1 class="title-6">Hi
-                                    <span>John</span>, Welcome back</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                <h1 class="title-6">Bonjour
+                                    <span>{{ app.user }}</span>, bienvenue !</h1>
+                                <p>Nous sommes très heureux de vous revoir. Commencez votre navigation. N'hésitez pas à contribuer à ajouter des documents pour les futures générations d'ESIREMiens !</p>
+                            {% else %}
+                                <h1 class="title-6">Bienvenue sur le site des annales de l'ESIREM !</h1>
+                                <p>Nous serions heureux de faire votre connaissance. <a href="{{ path('register') }}">Créez votre espace</a> et accédez à toute notre bibliothèque d'annales. Déjà membre ? <a href="{{ path('login') }}">Connectez-vous</a> pour profitez de la bibliothèque disponible !</p>
+                            {% endif %}
                             </div>
                             <form class="form-header form-header2" action="" method="post">
-                                <input class="au-input au-input--w435" type="text" name="search" placeholder="Search for datas &amp; reports...">
+                                <input class="au-input au-input--w435" type="text" name="search" placeholder="Rechercher un document...">
                                 <button class="au-btn--submit" type="submit">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
@@ -220,6 +220,7 @@
 
         <!-- PAGE CONTENT-->
         <div class="page-container3">
+            {% block alerts %}
             <section class="alert-wrap p-t-70 p-b-70">
                 <div class="container">
                     <!-- ALERT-->
@@ -235,6 +236,8 @@
                     <!-- END ALERT-->
                 </div>
             </section>
+            {% endblock %}
+            
             <section>
                 <div class="container">
                     <div class="row">
@@ -243,120 +246,292 @@
                             <aside class="menu-sidebar3 js-spe-sidebar">
                                 <nav class="navbar-sidebar2 navbar-sidebar3">
                                     <ul class="list-unstyled navbar__list">
-                                        <li class="active has-sub">
+                                        <li class="" id="index">
+                                            <a class="js-arrow" href="{{ path('index') }}">
+                                                <i class="fas fa-home"></i>Accueil
+                                            </a>
+                                        </li>
+                                        <li class="has-sub" id="1A">
                                             <a class="js-arrow" href="#">
-                                                <i class="fas fa-tachometer-alt"></i>Dashboard 4
+                                                <i class="fas fa-graduation-cap"></i>1<sup>ère</sup> Année GEIPI
                                                 <span class="arrow">
                                                     <i class="fas fa-angle-down"></i>
                                                 </span>
                                             </a>
                                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                                 <li>
-                                                    <a href="index.html">Dashboard 1</a>
+                                                    <a href="">La 1<sup>ère</sup> année</a>
                                                 </li>
                                                 <li>
-                                                    <a href="index2.html">Dashboard 2</a>
+                                                    <a href="">L'agenda</a>
                                                 </li>
                                                 <li>
-                                                    <a href="index3.html">Dashboard 3</a>
+                                                    <a href="">Les informations</a>
                                                 </li>
                                                 <li>
-                                                    <a href="index4.html">Dashboard 4</a>
+                                                    <a href="">Les matières</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li>
-                                            <a href="inbox.html">
-                                                <i class="fas fa-chart-bar"></i>Inbox</a>
-                                            <span class="inbox-num">3</span>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fas fa-shopping-basket"></i>eCommerce</a>
-                                        </li>
-                                        <li class="has-sub">
+                                        <li class="has-sub" id="2A">
                                             <a class="js-arrow" href="#">
-                                                <i class="fas fa-trophy"></i>Features
+                                                <i class="fas fa-graduation-cap"></i>2<sup>ème</sup> Année GEIPI
                                                 <span class="arrow">
                                                     <i class="fas fa-angle-down"></i>
                                                 </span>
                                             </a>
                                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                                 <li>
-                                                    <a href="table.html">Tables</a>
+                                                    <a href="">La 2<sup>ème</sup> année</a>
                                                 </li>
                                                 <li>
-                                                    <a href="form.html">Forms</a>
+                                                    <a href="">L'agenda</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Calendar</a>
+                                                    <a href="">Les informations</a>
                                                 </li>
                                                 <li>
-                                                    <a href="map.html">Maps</a>
+                                                    <a href="">Les matières</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="has-sub">
+                                        <li class="has-sub" id="IE">
                                             <a class="js-arrow" href="#">
-                                                <i class="fas fa-copy"></i>Pages
+                                                <i class="fab fa-android"></i>Ingénieur IE
                                                 <span class="arrow">
                                                     <i class="fas fa-angle-down"></i>
                                                 </span>
                                             </a>
                                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                                <li>
-                                                    <a href="login.html">Login</a>
+                                                <li class="has-sub">
+                                                    <a class="sub-js-arrow" href="#">
+                                                        <i class="fas fa-graduation-cap"></i>1<sup>ère</sup> Année
+                                                        <span class="arrow">
+                                                            <i class="fas fa-angle-down"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
+                                                        <li>
+                                                            <a href="">La 1<sup>ère</sup> année Ingénieur IE</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">L'agenda</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les informations</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les matières</a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
-                                                <li>
-                                                    <a href="register.html">Register</a>
+                                                <li class="has-sub">
+                                                    <a class="sub-js-arrow" href="#">
+                                                        <i class="fas fa-graduation-cap"></i>2<sup>ème</sup> Année
+                                                        <span class="arrow">
+                                                            <i class="fas fa-angle-down"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
+                                                        <li>
+                                                            <a href="">La 2<sup>ème</sup> année Ingénieur IE</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">L'agenda</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les informations</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les matières</a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
-                                                <li>
-                                                    <a href="forget-pass.html">Forget Password</a>
+                                                <li class="has-sub">
+                                                    <a class="sub-js-arrow" href="#">
+                                                        <i class="fas fa-graduation-cap"></i>3<sup>ème</sup> Année
+                                                        <span class="arrow">
+                                                            <i class="fas fa-angle-down"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
+                                                        <li>
+                                                            <a href="">La 3<sup>ème</sup> année Ingénieur IE</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">L'agenda</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les informations</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les matières</a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="has-sub">
+                                        <li class="has-sub" id="MDD">
                                             <a class="js-arrow" href="#">
-                                                <i class="fas fa-desktop"></i>UI Elements
+                                                <i class="fas fa-atom"></i>Ingénieur MDD
                                                 <span class="arrow">
                                                     <i class="fas fa-angle-down"></i>
                                                 </span>
                                             </a>
                                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                                <li>
-                                                    <a href="button.html">Button</a>
+                                                <li class="has-sub">
+                                                    <a class="sub-js-arrow" href="#">
+                                                        <i class="fas fa-graduation-cap"></i>1<sup>ère</sup> Année
+                                                        <span class="arrow">
+                                                            <i class="fas fa-angle-down"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
+                                                        <li>
+                                                            <a href="">La 1<sup>ère</sup> année Ingénieur MDD</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">L'agenda</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les informations</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les matières</a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
-                                                <li>
-                                                    <a href="badge.html">Badges</a>
+                                                <li class="has-sub">
+                                                    <a class="sub-js-arrow" href="#">
+                                                        <i class="fas fa-graduation-cap"></i>2<sup>ème</sup> Année
+                                                        <span class="arrow">
+                                                            <i class="fas fa-angle-down"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
+                                                        <li>
+                                                            <a href="">La 2<sup>ème</sup> année Ingénieur MDD</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">L'agenda</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les informations</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les matières</a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
-                                                <li>
-                                                    <a href="tab.html">Tabs</a>
-                                                </li>
-                                                <li>
-                                                    <a href="card.html">Cards</a>
-                                                </li>
-                                                <li>
-                                                    <a href="alert.html">Alerts</a>
-                                                </li>
-                                                <li>
-                                                    <a href="progress-bar.html">Progress Bars</a>
-                                                </li>
-                                                <li>
-                                                    <a href="modal.html">Modals</a>
-                                                </li>
-                                                <li>
-                                                    <a href="switch.html">Switchs</a>
-                                                </li>
-                                                <li>
-                                                    <a href="grid.html">Grids</a>
-                                                </li>
-                                                <li>
-                                                    <a href="fontawesome.html">FontAwesome</a>
-                                                </li>
-                                                <li>
-                                                    <a href="typo.html">Typography</a>
+                                                <li class="has-sub">
+                                                    <a class="sub-js-arrow" href="#">
+                                                        <i class="fas fa-graduation-cap"></i>3<sup>ème</sup> Année
+                                                        <span class="arrow">
+                                                            <i class="fas fa-angle-down"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
+                                                        <li>
+                                                            <a href="">La 3<sup>ème</sup> année Ingénieur MDD</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">L'agenda</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les informations</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les matières</a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
                                             </ul>
+                                        </li>
+                                        <li class="has-sub" id="ROBOTIQUE">
+                                            <a class="js-arrow" href="#">
+                                                <i class="fas fa-robot"></i>Ingénieur Robotique
+                                                <span class="arrow">
+                                                    <i class="fas fa-angle-down"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                                <li class="has-sub">
+                                                    <a class="sub-js-arrow" href="#">
+                                                        <i class="fas fa-graduation-cap"></i>1<sup>ère</sup> Année
+                                                        <span class="arrow">
+                                                            <i class="fas fa-angle-down"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
+                                                        <li>
+                                                            <a href="">La 1<sup>ère</sup> année Ingénieur Robotique</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">L'agenda</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les informations</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les matières</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="has-sub">
+                                                    <a class="sub-js-arrow" href="#">
+                                                        <i class="fas fa-graduation-cap"></i>2<sup>ème</sup> Année
+                                                        <span class="arrow">
+                                                            <i class="fas fa-angle-down"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
+                                                        <li>
+                                                            <a href="">La 2<sup>ème</sup> année Ingénieur Robotique</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">L'agenda</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les informations</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les matières</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="has-sub">
+                                                    <a class="sub-js-arrow" href="#">
+                                                        <i class="fas fa-graduation-cap"></i>3<sup>ème</sup> Année
+                                                        <span class="arrow">
+                                                            <i class="fas fa-angle-down"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
+                                                        <li>
+                                                            <a href="">La 3<sup>ème</sup> année Ingénieur Robotique</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">L'agenda</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les informations</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">Les matières</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="" id="informations">
+                                            <a class="js-arrow" href="{{ path('index') }}">
+                                                <i class="fas fa-info-circle"></i>Informations
+                                            </a>
+                                        </li>
+                                        <li class="" id="mentions-legales">
+                                            <a class="js-arrow" href="{{ path('index') }}">
+                                                <i class="fas fa-copyright"></i>Mentions légales
+                                            </a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -373,8 +548,15 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="copyright">
-                                            <p>Copyright © {{ 'now'|date('Y') }} Nicolas TOURRETTE. All rights reserved.<br>
-                                                Template by <a href="https://colorlib.com">Colorlib</a>.
+                                            <p>
+                                                Made with <i class="fas fa-heart"></i> & <i class="fas fa-coffee"></i> by Nicolas TOURRETTE. Copyright © {{ 'now'|date('Y') }}. Tous droits réservés. Conception <a href="https://colorlib.com" target="_blank">Colorlib</a>.
+                                            </p>
+                                            <p>
+                                                Ce site n'est pas officiel et est propulsé par des étudiants de l'école. Le site officiel de l'ESIREM est accessible à <a href="https://esirem.u-bourgogne.fr" target="_blank">ce lien</a>.
+                                            </p>
+                                            <br>
+                                            <p>
+                                                Version 3.0.0 (Feb 29 2020)
                                             </p>
                                         </div>
                                     </div>
@@ -396,20 +578,8 @@
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="vendor/slick/slick.min.js">
-    </script>
-    <script src="vendor/wow/wow.min.js"></script>
+    <!-- Vendor JS -->
     <script src="vendor/animsition/animsition.min.js"></script>
-    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
     </script>
 
     <!-- Main JS-->

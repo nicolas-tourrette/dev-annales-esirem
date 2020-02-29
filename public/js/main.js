@@ -1,3 +1,21 @@
+let CheminRepertoire = document.location.href.split('/');
+let regex = /\?[a-zA-Z0-9=&éè%]*/gmi;
+let maPage = CheminRepertoire[CheminRepertoire.length - 1].replace(regex, "");
+if (maPage.indexOf("-") > 0) {
+  maPage = maPage.substring(0, maPage.indexOf("-"));
+}
+let item;
+
+if (maPage == "" || maPage == "#") {
+  item = document.getElementById("index");
+}
+else {
+  item = document.getElementById(CheminRepertoire[CheminRepertoire.length - 2]);
+}
+
+if (item != null) {
+  item.classList.add("active");
+}
 
 (function ($) {
   // USE STRICT
@@ -1587,6 +1605,22 @@
         that.find(".arrow").toggleClass("up");
         that.toggleClass("open");
         that.parent().find('.js-sub-list').slideToggle("250");
+      });
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+    var arrow = $('.sub-js-arrow');
+    arrow.each(function () {
+      var that = $(this);
+      that.on('click', function (e) {
+        e.preventDefault();
+        that.find(".arrow").toggleClass("up");
+        that.toggleClass("open");
+        that.parent().find('.sub-js-sub-list').slideToggle("250");
       });
     });
 
