@@ -1,0 +1,71 @@
+{# templates/Security/register.html.twig #}
+
+{% extends "Security/login.html.twig" %}
+
+{% block title %}
+Création d'un compte | Annales ESIREM
+{% endblock %}
+
+{% block form %}
+
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_errors(form) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_errors(form.name) }}
+        {{ form_widget(form.name, {'attr': {'class': 'au-input au-input--full'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.username) }}
+        {{ form_errors(form.username) }}
+        {{ form_widget(form.username, {'attr': {'class': 'au-input au-input--full'}}) }}
+    </div>
+    <div class="form-group">
+        <label for="user_password_first" class="required">Mot de passe</label>
+        <input type="password" id="user_password_first"
+            name="user[password][first]" required="required" class="au-input au-input--full">
+        <label for="user_password_second" class="required">Confirmer le mot de passe</label>
+        <input type="password"
+            id="user_password_second" name="user[password][second]" required="required" class="au-input au-input--full">
+    </div>
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_errors(form.email) }}
+        {{ form_widget(form.email, {'attr': {'class': 'au-input au-input--full'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.birthday) }}
+        {{ form_errors(form.birthday) }}
+        {{ form_widget(form.birthday, {'attr': {'class': 'au-input au-input--full'}}) }}
+    </div>
+    <div class="login-checkbox">
+        {{ form_errors(form.public) }}
+        <label>
+            <input type="checkbox" id="user_public" name="user[public]">
+            Rendre mon profil visible dans l'annuaire
+        </label>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.profilimage) }}
+        {{ form_errors(form.profilimage) }}
+        {{ form_widget(form.profilimage, {'attr': {'class': 'au-input au-input--full'}}) }}
+    </div>
+    <div class="login-checkbox">
+        <label>
+            <input type="checkbox" name="aggree" required>
+            Accepter les conditions d'utilisation.
+        </label>
+    </div>
+    <input type="hidden" id="user__token" name="user[_token]" value="{{ csrf_token('create-account') }}">
+    <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Créer mon compte</button>
+</form>
+<div class="register-link">
+    <p>
+        Vous avez déjà un compte ?
+        <a href="{{ path('login') }}">Se connecter</a>
+    </p>
+</div>
+
+{% endblock %}

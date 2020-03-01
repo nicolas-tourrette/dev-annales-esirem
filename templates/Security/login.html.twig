@@ -12,7 +12,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>{% block title %}Annales ESIREM{% endblock %}</title>
+    <title>{% block title %}Connexion | Annales ESIREM{% endblock %}</title>
 
     <!-- Fontfaces CSS-->
     {% block stylesheets %}
@@ -45,6 +45,7 @@
                             </a>
                         </div>
                         <div class="login-form">
+                            {% block form %}
                             {% if error %}
                             <div class="alert au-alert-danger alert-dismissible fade show au-alert" role="alert" style="margin-bottom: 20px;">
                                 <i class="zmdi zmdi-alert-triangle"></i>
@@ -79,9 +80,10 @@
                             <div class="register-link">
                                 <p>
                                     Pas encore de compte ?
-                                    <a href="#">Créez le vôtre ici</a>.
+                                    <a href="{{ path('register') }}">Créez le vôtre ici</a>.
                                 </p>
                             </div>
+                            {% endblock %}
                         </div>
                     </div>
                 </div>
