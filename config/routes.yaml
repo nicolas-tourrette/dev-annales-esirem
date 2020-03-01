@@ -7,3 +7,11 @@ register:
 
 login:
     path: /login
+    defaults:
+        _controller: App\Controller\SecurityController::login
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout

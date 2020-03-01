@@ -5162,6 +5162,13 @@ section {
     border-left-color: #856404;
 }
 
+.au-alert-danger, .au-alert-danger > i {
+    color: #721c24;
+    background: #f8d7da;
+    border-color: #f5c6cb;
+    border-left-color: #721c24;
+}
+
 
 .au-alert--70per {
     width: 70.5%;
