@@ -191,7 +191,10 @@
                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                                 <h1 class="title-6">Bonjour
                                     <span>{{ app.user.name }}</span>, bienvenue !</h1>
-                                <p>Nous sommes très heureux de vous revoir. Commencez votre navigation. N'hésitez pas à contribuer à ajouter des documents pour les futures générations d'ESIREMiens !</p>
+                                <p>
+                                    Nous sommes très heureux de vous revoir. Commencez votre navigation.<br>
+                                    N'hésitez pas à contribuer à ajouter des documents pour les futures générations d'ESIREMiens !
+                                </p>
                             {% else %}
                                 <h1 class="title-6">Bienvenue sur le site des annales de l'ESIREM !</h1>
                                 <p>Nous serions heureux de faire votre connaissance. <a href="{{ path('register') }}">Créez votre espace</a> et accédez à toute notre bibliothèque d'annales. Déjà membre ? <a href="{{ path('login') }}">Connectez-vous</a> pour profitez de la bibliothèque disponible !</p>
@@ -226,6 +229,39 @@
                         </button>
                     </div>
                     <!-- END ALERT-->
+                    {% for message in app.session.flashbag.get('info') %}
+                    <div class="alert au-alert-info alert-dismissible fade show au-alert au-alert--70per" role="alert">
+                        <i class="zmdi zmdi-wrench"></i>
+                        <span class="content">{{ message }}</span>
+                        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">
+                                <i class="zmdi zmdi-close-circle"></i>
+                            </span>
+                        </button>
+                    </div>
+                    {% endfor %}
+                    {% for message in app.session.flashbag.get('warning') %}
+                    <div class="alert au-alert-warning alert-dismissible fade show au-alert au-alert--70per" role="alert">
+                        <i class="zmdi zmdi-wrench"></i>
+                        <span class="content">{{ message }}</span>
+                        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">
+                                <i class="zmdi zmdi-close-circle"></i>
+                            </span>
+                        </button>
+                    </div>
+                    {% endfor %}
+                    {% for message in app.session.flashbag.get('danger') %}
+                    <div class="alert au-alert-danger alert-dismissible fade show au-alert au-alert--70per" role="alert">
+                        <i class="zmdi zmdi-wrench"></i>
+                        <span class="content">{{ message }}</span>
+                        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">
+                                <i class="zmdi zmdi-close-circle"></i>
+                            </span>
+                        </button>
+                    </div>
+                    {% endfor %}
                 </div>
             </section>
             {% endblock %}
@@ -283,10 +319,10 @@
                                                     </a>
                                                     <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
                                                         <li>
-                                                            <a href="">La 2<sup>ème</sup> année préparatoire</a>
+                                                            <a href="{{ path('accueilAnnee', {'dpt': 'GEIPI', 'annee': '2A'}) }}">La 2<sup>ème</sup> année préparatoire</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">L'agenda</a>
+                                                            <a href="{{ path('agendaAnnee', {'dpt': 'GEIPI', 'annee': '2A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
                                                             <a href="">Les informations</a>
@@ -337,10 +373,10 @@
                                                     </a>
                                                     <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
                                                         <li>
-                                                            <a href="">La 2<sup>ème</sup> année Ingénieur IE</a>
+                                                            <a href="{{ path('accueilAnnee', {'dpt': 'IE', 'annee': '2A'}) }}">La 2<sup>ème</sup> année Ingénieur IE</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">L'agenda</a>
+                                                            <a href="{{ path('agendaAnnee', {'dpt': 'IE', 'annee': '2A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
                                                             <a href="">Les informations</a>
@@ -359,10 +395,10 @@
                                                     </a>
                                                     <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
                                                         <li>
-                                                            <a href="">La 3<sup>ème</sup> année Ingénieur IE</a>
+                                                            <a href="{{ path('accueilAnnee', {'dpt': 'IE', 'annee': '3A'}) }}">La 3<sup>ème</sup> année Ingénieur IE</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">L'agenda</a>
+                                                            <a href="{{ path('agendaAnnee', {'dpt': 'IE', 'annee': '3A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
                                                             <a href="">Les informations</a>
@@ -391,10 +427,10 @@
                                                     </a>
                                                     <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
                                                         <li>
-                                                            <a href="">La 1<sup>ère</sup> année Ingénieur MDD</a>
+                                                            <a href="{{ path('accueilAnnee', {'dpt': 'MDD', 'annee': '2A'}) }}">La 1<sup>ère</sup> année Ingénieur MDD</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">L'agenda</a>
+                                                            <a href="{{ path('agendaAnnee', {'dpt': 'MDD', 'annee': '1A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
                                                             <a href="">Les informations</a>
@@ -413,10 +449,10 @@
                                                     </a>
                                                     <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
                                                         <li>
-                                                            <a href="">La 2<sup>ème</sup> année Ingénieur MDD</a>
+                                                            <a href="{{ path('accueilAnnee', {'dpt': 'MDD', 'annee': '2A'}) }}">La 2<sup>ème</sup> année Ingénieur MDD</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">L'agenda</a>
+                                                            <a href="{{ path('agendaAnnee', {'dpt': 'MDD', 'annee': '2A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
                                                             <a href="">Les informations</a>
@@ -435,10 +471,10 @@
                                                     </a>
                                                     <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
                                                         <li>
-                                                            <a href="">La 3<sup>ème</sup> année Ingénieur MDD</a>
+                                                            <a href="{{ path('accueilAnnee', {'dpt': 'MDD', 'annee': '3A'}) }}">La 3<sup>ème</sup> année Ingénieur MDD</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">L'agenda</a>
+                                                            <a href="{{ path('agendaAnnee', {'dpt': 'MDD', 'annee': '3A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
                                                             <a href="">Les informations</a>
@@ -467,10 +503,10 @@
                                                     </a>
                                                     <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
                                                         <li>
-                                                            <a href="">La 1<sup>ère</sup> année Ingénieur Robotique</a>
+                                                            <a href="{{ path('accueilAnnee', {'dpt': 'ROBOTIQUE', 'annee': '1A'}) }}">La 1<sup>ère</sup> année Ingénieur Robotique</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">L'agenda</a>
+                                                            <a href="{{ path('agendaAnnee', {'dpt': 'ROBOTIQUE', 'annee': '1A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
                                                             <a href="">Les informations</a>
@@ -489,10 +525,10 @@
                                                     </a>
                                                     <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
                                                         <li>
-                                                            <a href="">La 2<sup>ème</sup> année Ingénieur Robotique</a>
+                                                            <a href="{{ path('accueilAnnee', {'dpt': 'ROBOTIQUE', 'annee': '2A'}) }}">La 2<sup>ème</sup> année Ingénieur Robotique</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">L'agenda</a>
+                                                            <a href="{{ path('agendaAnnee', {'dpt': 'ROBOTIQUE', 'annee': '2A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
                                                             <a href="">Les informations</a>
@@ -511,10 +547,10 @@
                                                     </a>
                                                     <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
                                                         <li>
-                                                            <a href="">La 3<sup>ème</sup> année Ingénieur Robotique</a>
+                                                            <a href="{{ path('accueilAnnee', {'dpt': 'ROBOTIQUE', 'annee': '3A'}) }}">La 3<sup>ème</sup> année Ingénieur Robotique</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">L'agenda</a>
+                                                            <a href="{{ path('agendaAnnee', {'dpt': 'ROBOTIQUE', 'annee': '3A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
                                                             <a href="">Les informations</a>

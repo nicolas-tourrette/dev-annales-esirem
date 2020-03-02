@@ -1,0 +1,115 @@
+{# templates/pages/informations.html.twig #}
+
+{% extends "index.html.twig" %}
+
+{% block title %}
+Mentions légales - {{ parent() }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    Mentions légales
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Mentions légales</strong>
+        </div>
+        <div class="card-body">
+            <div>
+                <h3 class="mb-2 mt-2">Réalisation, publication et hébergement du site</h3>
+                <p>
+                    <ul class="vue-lists">
+                        <li>Raison sociale : Annales de l'ESIREM</li>
+                        <li>Siège : ESIREM DIJON, 9 Avenue Alain Savary, 21000 Dijon</li>
+                        <li>Site réalisé par : Nicolas TOURRETTE</li>
+                        <li>Directeur de publication : Nicolas TOURRETTE</li>
+                        <li>Site hébergé par : Nicolas TOURRETTE</li>
+                    </ul>
+                </p>
+                <h3 class="mb-2 mt-2">Respect de la vie privée et des données personnelles</h3>
+                <p>
+                    Conformément à la Loi « Informatique et Libertés » n° 78-17 du 6 janvier 1978, vous disposez d’un droit d’accès, de modification, de rectification et de suppression des données qui vous concernent.
+                </p>
+                <p>
+                    Ce site accepte le Règlement Général relatif à la Protection des Données (N°2016/679, dit RGPD) du 24 mai 2016 en vigueur depuis le 25 mai 2018 dans toute l'Union Européenne. Vous avez donc un droit de regard sur la manière dont sont exploitées vos données personnelles.
+                </p>
+                <h3 class="mb-2 mt-2">Propriété intellectuelle</h3>
+                <p>
+                    L’ensemble de ce site relève de la législation française et internationale sur les droits d’auteur et de la propriété intellectuelle. Les noms, marques et enseignes cités sur ce site sont la propriété de leurs déposants respectifs. Toute utilisation ou reproduction, totale ou partielle, du site, des éléments qui le composent et/ou des informations qui y figurent, par quelque procédé que ce soit, constitue une contrefaçon sanctionnée par le Code de la propriété intellectuelle.
+                <p>   
+                    Ce site n'est pas officiel et est réalisé par les étudiants de l'école. Le logo est utilisé dans le cadre de sa charte graphique.
+                </p>
+                <h3 class="mb-2 mt-2">Conditions générales d'utilisation</h3>
+                <p>
+                    L'utilisation de ce site est soumise à l'acceptation des CGU dès votre inscription. Elles sont disponibles ci-après et doivent être acceptées pour valider la création de son espace. Elles sont applicables immédiatement et dans les termes exacts de la rédaction en cours.
+                <p>
+                    En cas de changement de ces Conditions, un email vous sera envoyé. Nous vous informons que le site se réserve le droit de les modifier. L'utilisation de votre compte vaut acceptation des nouvelles conditions modifiées.<br>
+                    En cas de questions, contacter un administrateur.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="card" id="cgu">
+        <div class="card-header">
+            <strong class="card-title">Conditions Générales d'Utilisation (CGU)</strong>
+        </div>
+        <div class="card-body">
+            <div>
+                <p>Les présentes Conditions Générales d'Utilisation ont pour objet de définir les modalités de mise à disposition du site <a href="{{ path('index') }}">https://esirem.nicolas-t.ovh/</a>, ci-après nommé « le Service » et les conditions d'utilisation du Service par l'Utilisateur.
+                </p>
+                <p>
+                    <ul class="vue-lists">
+                        <li>Site : Le Site désigne le site Internet <a href="{{ path('index') }}">https://esirem.nicolas-t.ovh/</a> ;</li>
+                        <li>Utilisateur : L'Utilisateur est toute personne qui utilise le Site ou l'un des services proposés sur le Site ;</li>
+                        <li>Membre : Le terme « Membre » désigne un utilisateur identifié sur le site ;</li>
+                        <li>Contenu : Le terme « Contenu Utilisateur » désigne les données transmises par l'Utilisateur dans les différentes rubriques du Site.</li>
+                    </ul>
+                </p>
+                <p>
+                    Le Site est régit par ces mentions légales :
+                    <ul class="vue-lists">
+                        <li>Raison sociale : Annales de l'ESIREM</li>
+                        <li>Siège : ESIREM DIJON, 9 Avenue Alain Savary, 21000 Dijon</li>
+                        <li>Site réalisé par : Nicolas TOURRETTE</li>
+                        <li>Directeur de publication : Nicolas TOURRETTE</li>
+                        <li>Site hébergé par : Nicolas TOURRETTE</li>
+                    </ul>
+                </p>
+                <p>
+                    Le Site propose gratuitement à l'Utilisateur les services suivants : cours, TD, annales de l'ESIREM ; agenda ; informations ; annuaire des utilisateurs. Le site est accessible à tout Utilisateur, et tous les frais liés à l'accès de l'Utilisateur sont à sa charge exclusive. Les Membres peuvent gratuitement gérer leur espace sur le Site.
+                </p>
+                <p>
+                    Les informations portées sur le Site sont sous le contrôle exclusif du Membre qui les partages. Le Site n'est pas responsable des informations qui y sont diffusées. Le Site se réserve cependant le droit de contrôle des informations qui y sont partagées par les membres.
+                </p>
+                <p>
+                    Le Site utilise des cookies qui peuvent s'installer sur le logiciel de navigation de l'Utilisateur. Ces cookies ne contiennent aucune information personnelle. L'expiration de ces cookies est variable dans le temps.
+                </p>
+                <p>
+                    La responsabilité du Site ne pourra être engagée en cas de force majeure ou de faits indépendants de sa volonté.
+                </p>
+                <p>
+                    Conformément à la Loi « Informatique et Libertés » n° 78-17 du 6 janvier 1978, vous disposez d’un droit d’accès, de modification, de rectification et de suppression des données qui vous concernent.
+                </p>
+                <p>
+                    L’ensemble de ce site relève de la législation française et internationale sur les droits d’auteur et de la propriété intellectuelle. Les noms, marques et enseignes cités sur ce site sont la propriété de leurs déposants respectifs. Toute utilisation ou reproduction, totale ou partielle, du site, des éléments qui le composent et/ou des informations qui y figurent, par quelque procédé que ce soit, constitue une contrefaçon sanctionnée par le Code de la propriété intellectuelle.
+                </p>
+                <p>
+                    Ce site n'est pas officiel et est réalisé par les étudiants de l'école. Le logo est utilisé dans le cadre de sa charte graphique.
+                </p>
+                <p>
+                    La législation française s'applique aux présentes conditions. Les tribunaux français sont les seuls compétents en cas de litige non résolu à l'amiable entre l'Utilisateur et le Site. Pour toute question relative aux présentes conditions, vous pouvez nous contacter.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

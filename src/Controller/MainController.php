@@ -45,6 +45,6 @@ class MainController extends AbstractController {
      * @Route("/mentions-legales", name="mentionslegales")
      */
     public function mentionsLegales(){
-         return $this->render('pages/informations.html.twig');
+         return $this->render('pages/mentionslegales.html.twig');
     }
 }

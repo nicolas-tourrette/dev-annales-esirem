@@ -5169,6 +5169,13 @@ section {
     border-left-color: #721c24;
 }
 
+.au-alert-info, .au-alert-info > i {
+    color: #004085;
+    background: #cce5ff;
+    border-color: #b8daff;
+    border-left-color: #004085;
+}
+
 
 .au-alert--70per {
     width: 70.5%;
@@ -14670,5 +14677,5 @@ section {
 }
 
 .vue-lists {
-    padding-left: 30px;
+    padding-left: 40px;
 }

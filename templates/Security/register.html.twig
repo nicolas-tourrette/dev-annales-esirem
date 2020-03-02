@@ -67,7 +67,7 @@ Création d'un compte | Annales ESIREM
     <div class="login-checkbox">
         <label>
             <input type="checkbox" name="aggree" required>
-            Accepter les conditions d'utilisation.
+            Accepter les <a href="{{ path('mentionslegales') }}#cgu">conditions d'utilisation</a>.
         </label>
     </div>
     <input type="hidden" id="user__token" name="user[_token]" value="{{ csrf_token('create-account') }}">
