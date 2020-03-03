@@ -21,13 +21,13 @@ class UserFixtures extends Fixture
     {
         $user = new User();
 
-        $user->setUsername("nt780325");
+        $user->setUsername("ab123456");
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            '&siremDijon21'
+            'test123456'
         ));
-        $user->setName("Nicolas TOURRETTE");
-        $user->setEmail("nicolas_tourrette@etu.u-bourgogne.fr");
+        $user->setName("Test admin");
+        $user->setEmail("test_admin@etu.u-bourgogne.fr");
         $user->setRoles(array("ROLE_ADMIN"));
         $user->setBirthday(new \Datetime("1998-08-12"));
         $user->setPublic(true);
