@@ -9,6 +9,8 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
+/src/DataFixtures/
+
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache
