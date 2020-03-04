@@ -1,0 +1,61 @@
+{# templates/app/matieres.html.twig #}
+
+{% extends "index.html.twig" %}
+
+{% block title %}
+{{ app.request.attributes.get('_route_params').dpt }} - {{ app.request.attributes.get('_route_params').annee }} - {{ parent() }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item">
+    {{ app.request.attributes.get('_route_params').dpt }}
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item">
+    {{ app.request.attributes.get('_route_params').annee }}
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    Matières
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Matières </strong>
+        </div>
+        <div class="card-body">
+            <p>Pour accéder aux ressources disponibles, sélectionnez la matière désirée :</p>
+            <form method="POST">
+                <div class="form-group">
+                    <select class="form-control" name="id" {% if listMatieres|length == 0 %}disabled="" {% endif %}>
+                        {% for matiere in listMatieres %}
+                        <option value="{{ matiere.id }}">{{ matiere.nom }} ({{ matiere.specialite }})</option>
+                        {% else %}
+                        <option>Aucune matière renseignée</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                        <i class="fas fa-check fa-lg"></i>&nbsp;
+                        <span id="payment-button-amount">Valider</span>
+                        <span id="payment-button-sending" style="display:none;">Sending…</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{# templates/app/matiereDetail.html.twig #}
+
+{% extends "app/matieres.html.twig" %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    {{ matiere.nom }}
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">{{ matiere.nom }}</strong>
+        </div>
+        <div class="card-body">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
