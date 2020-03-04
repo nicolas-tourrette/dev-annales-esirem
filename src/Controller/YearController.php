@@ -58,7 +58,7 @@ class YearController extends AbstractController {
     }
 
     /**
-    * @Route("/matieres/{id}", name="matiereDetails")
+    * @Route("/matiere/{id}", name="matiereDetails")
     */
     public function matiereDisplay(Request $request,  $dpt, $annee, $id){
         $em = $this->getDoctrine()->getManager();
@@ -66,14 +66,19 @@ class YearController extends AbstractController {
 
         $matiere = $repository->getMatiere($dpt, $annee, $id);
 
-        dump($matiere);
-
         if($matiere == []){
             throw new NotFoundHttpException("Cette matière n'a pas été trouvée.");
         }
 
+        $listCours = $em->getRepository("App:Cours")->findBy(array(
+            'matiere' => $id
+        ), array(
+            'date' => 'DESC'
+        ));
+
         return $this->render('app/matiereDetails.html.twig', array(
-            'matiere' => $matiere
+            'matiere' => $matiere[0],
+            'listCours' => $listCours
         ));
     }
 }

@@ -19,6 +19,11 @@
             <strong class="card-title">{{ matiere.nom }}</strong>
         </div>
         <div class="card-body">
+            {% for cours in listCours %}
+            <p>{{ cours.subject }} ({{ cours.date|date("d/m/Y") }})</p>
+            {% else %}
+            <p>Aucun cours disponible.</p>
+            {% endfor %}
         </div>
     </div>
 </div>

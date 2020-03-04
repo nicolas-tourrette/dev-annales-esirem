@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MatiereRepository")
+ * @UniqueEntity(fields="id", message="Une matière possédant cet identifiant existe déjà.")
  */
 class Matiere
 {
@@ -18,23 +21,32 @@ class Matiere
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $departement;
 
     /**
      * @ORM\Column(type="string", length=2)
+     * @Assert\Choice({"1A", "2A", "3A"})
      */
     private $annee;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $specialite;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cours", mappedBy="matiere", cascade={"persist", "remove"})
+     */
+    private $cours;
 
     public function getId(): ?int
     {
@@ -85,6 +97,23 @@ class Matiere
     public function setSpecialite(string $specialite): self
     {
         $this->specialite = $specialite;
+
+        return $this;
+    }
+
+    public function getCours(): ?Cours
+    {
+        return $this->cours;
+    }
+
+    public function setCours(Cours $cours): self
+    {
+        $this->cours = $cours;
+
+        // set the owning side of the relation if necessary
+        if ($cours->getMatiere() !== $this) {
+            $cours->setMatiere($this);
+        }
 
         return $this;
     }

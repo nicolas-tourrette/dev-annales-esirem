@@ -7,8 +7,6 @@ let maPage = CheminRepertoire[CheminRepertoire.length - 1].replace(regex, "");
 let item;
 let idForItem;
 
-console.log(maPage);
-
 if ((maPage == "" || maPage == "#") && CheminRepertoire.length == 4) {
 	idForItem = "index";
 }
@@ -18,9 +16,14 @@ else if ((maPage != "" || maPage != "#") && CheminRepertoire.length == 4) {
 else if ((maPage == "" || maPage == "#") && CheminRepertoire[CheminRepertoire.length - 2] != ""){
 	idForItem = CheminRepertoire[CheminRepertoire.length - 3];
 }
+else if (maPage > 0){
+  idForItem = CheminRepertoire[CheminRepertoire.length - 4];
+}
 else {
 	idForItem = CheminRepertoire[CheminRepertoire.length - 3];
 }
+
+console.log(idForItem);
 
 if (idForItem.indexOf("#") > 0) {
 	idForItem = idForItem.substring(0, idForItem.indexOf("#"));
