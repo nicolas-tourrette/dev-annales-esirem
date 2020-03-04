@@ -39,7 +39,7 @@ class YearController extends AbstractController {
     * @Route("/matieres", name="matieresAnnee")
     */
     public function matieresList(Request $request, $dpt, $annee){
-        if($request->isMethod('POST')){
+        if($request->isMethod('POST') && $request->request->get('id') != null){
             return $this->redirectToRoute('matiereDetails', array(
                 'dpt' => $dpt,
                 'annee' => $annee,

@@ -18,13 +18,17 @@
     <span>/</span>
 </li>
 <li class="list-inline-item">
-    {{ app.request.attributes.get('_route_params').annee }}
+    <a href="/{{ app.request.attributes.get('_route_params').dpt }}/{{ app.request.attributes.get('_route_params').annee }}">
+        {{ app.request.attributes.get('_route_params').annee }}
+    </a>
 </li>
 <li class="list-inline-item seprate">
     <span>/</span>
 </li>
-<li class="list-inline-item active">
-    Matières
+<li class="list-inline-item {% if app.request.attributes.get('_route') == "matieresAnnee" %}active{% endif %}">
+    <a href="/{{ app.request.attributes.get('_route_params').dpt }}/{{ app.request.attributes.get('_route_params').annee }}/matieres">
+        Matières
+    </a>
 </li>
 {% endblock %}
 
@@ -32,7 +36,7 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <strong class="card-title">Matières </strong>
+            <strong class="card-title">Matières</strong>
         </div>
         <div class="card-body">
             <p>Pour accéder aux ressources disponibles, sélectionnez la matière désirée :</p>
@@ -47,8 +51,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
-                        <i class="fas fa-check fa-lg"></i>&nbsp;
+                    <button id="payment-button" type="submit" class="btn btn-lg btn-primary btn-block" {% if listMatieres|length == 0 %}disabled="" {% endif %}>
+                        <i class="far fa-check-circle"></i>&nbsp;
                         <span id="payment-button-amount">Valider</span>
                         <span id="payment-button-sending" style="display:none;">Sending…</span>
                     </button>
