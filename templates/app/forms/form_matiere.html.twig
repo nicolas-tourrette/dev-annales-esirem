@@ -1,0 +1,70 @@
+{# templates/app/forms/form_matiere.html.twig #}
+
+{% extends "index.html.twig" %}
+
+{% block title %}
+Ajouter une matière - {{ parent() }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    Ajouter une matière
+</li>
+{% endblock %}
+
+{% block body %}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Nouvelle matière</strong>
+        </div>
+        <div class="card-body">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {% if form_errors(form) %}
+            <div class="form-group">
+                <div class="alert au-alert-danger alert-dismissible fade show au-alert" role="alert" style="margin-bottom: 20px;">
+                    <i class="zmdi zmdi-alert-triangle"></i>
+                    <span class="content"><strong>Une erreur s'est produite !</strong>
+                        {{ form_errors(form) }}
+                    </span>
+                    <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">
+                            <i class="zmdi zmdi-close-circle"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                {{ form_label(form.nom) }}
+                {{ form_errors(form.nom) }}
+                {{ form_widget(form.nom, {'attr': {'class': 'au-input au-input--full'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.departement) }}
+                {{ form_errors(form.departement) }}
+                {{ form_widget(form.departement, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.annee) }}
+                {{ form_errors(form.annee) }}
+                {{ form_widget(form.annee, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.specialite) }}
+                {{ form_errors(form.specialite) }}
+                {{ form_widget(form.specialite, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            {{ form_rest(form) }}
+            <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Valider</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

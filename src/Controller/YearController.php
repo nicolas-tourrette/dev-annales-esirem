@@ -15,7 +15,6 @@ use Twig\Environment;
 * @Route("/{dpt}/{annee}")
 */
 class YearController extends AbstractController {
-    
     /**
     * @Route("/", name="accueilAnnee")
     */

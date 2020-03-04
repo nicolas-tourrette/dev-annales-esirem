@@ -2,6 +2,10 @@
 
 {% extends "app/matieres.html.twig" %}
 
+{% block title %}
+{{ matiere.nom }} - {{ parent() }}
+{% endblock %}
+
 {% block breadcrumb %}
 {{ parent() }}
 <li class="list-inline-item seprate">
@@ -16,7 +20,22 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <strong class="card-title">{{ matiere.nom }}</strong>
+            <div class="row">
+                <div class="col">
+                    <strong class="card-title">{{ matiere.nom }}</strong>
+                </div>
+                <div class="col text-right">
+                    {#<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actions
+                        <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Ajouter un cours</a>
+                        <a class="dropdown-item" href="#">Submenu 1-2</a>
+                        <a class="dropdown-item" href="#">Submenu 1-3</a>
+                    </div>#}
+                    <a href="" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i>&nbsp;Ajouter un cours</a>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             {% for cours in listCours %}

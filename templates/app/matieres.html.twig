@@ -3,7 +3,7 @@
 {% extends "index.html.twig" %}
 
 {% block title %}
-{{ app.request.attributes.get('_route_params').dpt }} - {{ app.request.attributes.get('_route_params').annee }} - {{ parent() }}
+{{ app.request.attributes.get('_route_params').dpt }} - {{ app.request.attributes.get('_route_params').annee }} | {{ parent() }}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -56,6 +56,7 @@
                         <span id="payment-button-amount">Valider</span>
                         <span id="payment-button-sending" style="display:none;">Sending…</span>
                     </button>
+                    <a class="btn btn-primary btn-block" href=""><i class="fas fa-plus-circle"></i>&nbsp;Ajouter une matière</a>
                 </div>
             </form>
         </div>

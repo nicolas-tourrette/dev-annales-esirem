@@ -21,7 +21,7 @@ class Matiere
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\Choice({"GEIPI", "IE", "MDD", "ROBOTIQUE"})
      */
     private $departement;
 
