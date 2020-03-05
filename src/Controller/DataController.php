@@ -37,6 +37,7 @@ class DataController extends AbstractController {
                 $em->persist($matiere);
                 $em->flush();
                 
+                $request->getSession()->getFlashBag()->add('info', 'La matière a bien été ajoutée.');
                 return $this->redirectToRoute('matiereDetails', array(
                     'id' => $matiere->getId(),
                     'dpt' => $matiere->getDepartement(),
@@ -66,6 +67,7 @@ class DataController extends AbstractController {
                 $em->persist($cours);
                 $em->flush();
                 
+                $request->getSession()->getFlashBag()->add('info', 'Le cours bien été ajouté.');
                 return $this->redirectToRoute('matiereDetails', array(
                     'id' => $cours->getMatiere()->getId(),
                     'dpt' => $cours->getMatiere()->getDepartement(),
@@ -95,6 +97,7 @@ class DataController extends AbstractController {
                 $em->persist($annale);
                 $em->flush();
                 
+                $request->getSession()->getFlashBag()->add('info', 'L\'annale a bien été ajoutée.');
                 return $this->redirectToRoute('matiereDetails', array(
                     'id' => $annale->getMatiere()->getId(),
                     'dpt' => $annale->getMatiere()->getDepartement(),

@@ -219,7 +219,7 @@
             <section class="alert-wrap p-t-70 p-b-70">
                 <div class="container">
                     <!-- ALERT-->
-                    <div class="alert au-alert-warning alert-dismissible fade show au-alert au-alert--70per" role="alert">
+                    <div class="alert au-alert-warning alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
                         <i class="zmdi zmdi-wrench"></i>
                         <span class="content">Ceci est une version beta !</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
@@ -230,7 +230,7 @@
                     </div>
                     <!-- END ALERT-->
                     {% for message in app.session.flashbag.get('info') %}
-                    <div class="alert au-alert-info alert-dismissible fade show au-alert au-alert--70per" role="alert">
+                    <div class="alert au-alert-info alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
                         <i class="zmdi zmdi-wrench"></i>
                         <span class="content">{{ message }}</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
@@ -241,7 +241,7 @@
                     </div>
                     {% endfor %}
                     {% for message in app.session.flashbag.get('warning') %}
-                    <div class="alert au-alert-warning alert-dismissible fade show au-alert au-alert--70per" role="alert">
+                    <div class="alert au-alert-warning alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
                         <i class="zmdi zmdi-wrench"></i>
                         <span class="content">{{ message }}</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
@@ -252,7 +252,7 @@
                     </div>
                     {% endfor %}
                     {% for message in app.session.flashbag.get('danger') %}
-                    <div class="alert au-alert-danger alert-dismissible fade show au-alert au-alert--70per" role="alert">
+                    <div class="alert au-alert-danger alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
                         <i class="zmdi zmdi-wrench"></i>
                         <span class="content">{{ message }}</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
