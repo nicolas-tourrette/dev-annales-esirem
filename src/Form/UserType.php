@@ -28,7 +28,8 @@ class UserType extends AbstractType
                 TextType::class,
                 array(
                     'label' => "Identifiant ENT",
-                    'required' => true
+                    'required' => true,
+                    'attr' => ["placeholder" => "ab123456"]
                 )
             )
             ->add('password',
