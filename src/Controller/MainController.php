@@ -15,7 +15,9 @@ class MainController extends AbstractController {
     * @Route("/", name="index")
     */
     public function index(){
-        return $this->render('index.html.twig');
+        return $this->render('index.html.twig', array(
+                'lastVersion' => $this->getLastVersion()
+        ));
     }
 
     public function notifications($limit){
@@ -33,7 +35,11 @@ class MainController extends AbstractController {
      * @Route("/informations", name="informations")
      */
     public function informations(){
-         return $this->render('pages/informations.html.twig');
+        
+
+        return $this->render('pages/informations.html.twig', array(
+            'listVersions' => $this->getVersions()
+        ));
     }
 
     /**
@@ -41,5 +47,32 @@ class MainController extends AbstractController {
      */
     public function mentionsLegales(){
          return $this->render('pages/mentionslegales.html.twig');
+    }
+
+    public function getLastVersion(){
+        $jsonFile = "resources/version.json";
+        if(file_exists($jsonFile)){
+            $json = file_get_contents($jsonFile, false);
+            $jsonDatas = json_decode($json, true);
+
+            return $this->render('versions/last.html.twig', array(
+                'lastVersion' => $jsonDatas[0]
+            ));
+        }
+
+        return $this->render('versions/last.html.twig', array(
+            'lastVersion' => null
+        ));
+    }
+
+    public function getVersions(){
+        $jsonFile = "resources/version.json";
+        if(file_exists($jsonFile)){
+            $json = file_get_contents($jsonFile, false);
+            $jsonDatas = json_decode($json, true);
+
+            return $jsonDatas;
+        }
+        return null;
     }
 }

@@ -1,0 +1,6 @@
+Version
+{% if lastVersion is not null %}
+{{ lastVersion.number }} (build {{ lastVersion.build }} - {{ lastVersion.date }})
+{% else %}
+<< undefined>>
+{% endif %}
