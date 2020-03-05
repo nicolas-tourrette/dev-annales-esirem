@@ -25,13 +25,19 @@ class YearController extends AbstractController {
     /**
     * @Route("/agenda", name="agendaAnnee")
     */
-    public function agenda($annee){
-        return $this->render('index.html.twig', array(
-            'listNotifications' => array(/*
-                ["message" => "Test nofitification 1", "date" => "2020-01-20", "icon" => "alert-triangle", "category" => "danger"],
-                ["message" => "Test nofitification 2", "date" => "2020-02-15", "icon" => "badge-check", "category" => "info"]
-            */)
-        ));
+    public function agenda(Request $request, $annee){
+
+        $request->getSession()->getFlashBag()->add('warning', 'Cette fonction n\'est pas disponible.');
+        return $this->render('index.html.twig');
+    }
+
+    /**
+    * @Route("/informations", name="infosAnnee")
+    */
+    public function informations(Request $request, $annee){
+
+        $request->getSession()->getFlashBag()->add('warning', 'Cette fonction n\'est pas disponible. Reportez-vous à un groupe Facebook ou Messenger.');
+        return $this->render('index.html.twig');
     }
 
     /**

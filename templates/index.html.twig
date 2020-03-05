@@ -231,7 +231,7 @@
                     <!-- END ALERT-->
                     {% for message in app.session.flashbag.get('info') %}
                     <div class="alert au-alert-info alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
-                        <i class="zmdi zmdi-wrench"></i>
+                        <i class="zmdi zmdi-info"></i>
                         <span class="content">{{ message }}</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">
@@ -242,7 +242,7 @@
                     {% endfor %}
                     {% for message in app.session.flashbag.get('warning') %}
                     <div class="alert au-alert-warning alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
-                        <i class="zmdi zmdi-wrench"></i>
+                        <i class="zmdi zmdi-alert-circle"></i>
                         <span class="content">{{ message }}</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">
@@ -253,7 +253,7 @@
                     {% endfor %}
                     {% for message in app.session.flashbag.get('danger') %}
                     <div class="alert au-alert-danger alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
-                        <i class="zmdi zmdi-wrench"></i>
+                        <i class="zmdi zmdi-alert-triangle"></i>
                         <span class="content">{{ message }}</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">
@@ -303,7 +303,7 @@
                                                             <a href="{{ path('agendaAnnee', {'dpt': 'GEIPI', 'annee': '1A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">Les informations</a>
+                                                            <a href="{{ path('infosAnnee', {'dpt': 'GEIPI', 'annee': '1A'}) }}">Les informations</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('matieresAnnee', {'dpt': 'GEIPI', 'annee': '1A'}) }}">Les matières</a>
@@ -325,7 +325,7 @@
                                                             <a href="{{ path('agendaAnnee', {'dpt': 'GEIPI', 'annee': '2A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">Les informations</a>
+                                                            <a href="{{ path('infosAnnee', {'dpt': 'GEIPI', 'annee': '2A'}) }}">Les informations</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('matieresAnnee', {'dpt': 'GEIPI', 'annee': '2A'}) }}">Les matières</a>
@@ -357,7 +357,7 @@
                                                             <a href="{{ path('agendaAnnee', {'dpt': 'IE', 'annee': '1A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">Les informations</a>
+                                                            <a href="{{ path('infosAnnee', {'dpt': 'IE', 'annee': '1A'}) }}">Les informations</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('matieresAnnee', {'dpt': 'IE', 'annee': '1A'}) }}">Les matières</a>
@@ -379,7 +379,7 @@
                                                             <a href="{{ path('agendaAnnee', {'dpt': 'IE', 'annee': '2A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">Les informations</a>
+                                                            <a href="{{ path('infosAnnee', {'dpt': 'IE', 'annee': '2A'}) }}">Les informations</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('matieresAnnee', {'dpt': 'IE', 'annee': '2A'}) }}">Les matières</a>
@@ -401,7 +401,7 @@
                                                             <a href="{{ path('agendaAnnee', {'dpt': 'IE', 'annee': '3A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">Les informations</a>
+                                                            <a href="{{ path('infosAnnee', {'dpt': 'IE', 'annee': '3A'}) }}">Les informations</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('matieresAnnee', {'dpt': 'IE', 'annee': '3A'}) }}">Les matières</a>
@@ -427,13 +427,13 @@
                                                     </a>
                                                     <ul class="list-unstyled navbar__sub-list sub-js-sub-list">
                                                         <li>
-                                                            <a href="{{ path('accueilAnnee', {'dpt': 'MDD', 'annee': '2A'}) }}">La 1<sup>ère</sup> année Ingénieur MDD</a>
+                                                            <a href="{{ path('accueilAnnee', {'dpt': 'MDD', 'annee': '1A'}) }}">La 1<sup>ère</sup> année Ingénieur MDD</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('agendaAnnee', {'dpt': 'MDD', 'annee': '1A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">Les informations</a>
+                                                            <a href="{{ path('infosAnnee', {'dpt': 'MDD', 'annee': '1A'}) }}">Les informations</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('matieresAnnee', {'dpt': 'MDD', 'annee': '1A'}) }}">Les matières</a>
@@ -455,7 +455,7 @@
                                                             <a href="{{ path('agendaAnnee', {'dpt': 'MDD', 'annee': '2A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">Les informations</a>
+                                                            <a href="{{ path('infosAnnee', {'dpt': 'MDD', 'annee': '2A'}) }}">Les informations</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('matieresAnnee', {'dpt': 'MDD', 'annee': '2A'}) }}">Les matières</a>
@@ -477,7 +477,7 @@
                                                             <a href="{{ path('agendaAnnee', {'dpt': 'MDD', 'annee': '3A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">Les informations</a>
+                                                            <a href="{{ path('infosAnnee', {'dpt': 'MDD', 'annee': '3A'}) }}">Les informations</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('matieresAnnee', {'dpt': 'MDD', 'annee': '3A'}) }}">Les matières</a>
@@ -509,7 +509,7 @@
                                                             <a href="{{ path('agendaAnnee', {'dpt': 'ROBOTIQUE', 'annee': '1A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">Les informations</a>
+                                                            <a href="{{ path('infosAnnee', {'dpt': 'ROBOTIQUE', 'annee': '1A'}) }}">Les informations</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('matieresAnnee', {'dpt': 'ROBOTIQUE', 'annee': '1A'}) }}">Les matières</a>
@@ -531,7 +531,7 @@
                                                             <a href="{{ path('agendaAnnee', {'dpt': 'ROBOTIQUE', 'annee': '2A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">Les informations</a>
+                                                            <a href="{{ path('infosAnnee', {'dpt': 'ROBOTIQUE', 'annee': '2A'}) }}">Les informations</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('matieresAnnee', {'dpt': 'ROBOTIQUE', 'annee': '2A'}) }}">Les matières</a>
@@ -553,7 +553,7 @@
                                                             <a href="{{ path('agendaAnnee', {'dpt': 'ROBOTIQUE', 'annee': '3A'}) }}">L'agenda</a>
                                                         </li>
                                                         <li>
-                                                            <a href="">Les informations</a>
+                                                            <a href="{{ path('infosAnnee', {'dpt': 'ROBOTIQUE', 'annee': '3A'}) }}">Les informations</a>
                                                         </li>
                                                         <li>
                                                             <a href="{{ path('matieresAnnee', {'dpt': 'ROBOTIQUE', 'annee': '3A'}) }}">Les matières</a>

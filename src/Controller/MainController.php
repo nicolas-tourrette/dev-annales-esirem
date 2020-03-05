@@ -15,12 +15,7 @@ class MainController extends AbstractController {
     * @Route("/", name="index")
     */
     public function index(){
-        return $this->render('index.html.twig', array(
-            'listNotifications' => array(/*
-                ["message" => "Test nofitification 1", "date" => "2020-01-20", "icon" => "alert-triangle", "category" => "danger"],
-                ["message" => "Test nofitification 2", "date" => "2020-02-15", "icon" => "badge-check", "category" => "info"]
-            */)
-        ));
+        return $this->render('index.html.twig');
     }
 
     public function notifications($limit){
