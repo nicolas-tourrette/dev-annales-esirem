@@ -1,0 +1,80 @@
+{# templates/app/forms/form_matiere.html.twig #}
+
+{% extends "index.html.twig" %}
+
+{% block title %}
+Ajouter une annale - {{ parent() }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    Ajouter une annale
+</li>
+{% endblock %}
+
+{% block body %}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Nouvelle annale</strong>
+        </div>
+        <div class="card-body">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {% if form_errors(form) %}
+            <div class="form-group">
+                <div class="alert au-alert-danger alert-dismissible fade show au-alert" role="alert" style="margin-bottom: 20px;">
+                    <i class="zmdi zmdi-alert-triangle"></i>
+                    <span class="content"><strong>Une erreur s'est produite !</strong>
+                        {{ form_errors(form) }}
+                    </span>
+                    <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">
+                            <i class="zmdi zmdi-close-circle"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                {{ form_label(form.subject) }}
+                {{ form_errors(form.subject) }}
+                {{ form_widget(form.subject, {'attr': {'class': 'au-input au-input--full'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.date) }}
+                {{ form_errors(form.date) }}
+                {{ form_widget(form.date, {'attr': {'class': 'au-input au-input--full'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.universityYear) }}
+                {{ form_errors(form.universityYear) }}
+                {{ form_widget(form.universityYear, {'attr': {'class': 'au-input au-input--full'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.duration) }}
+                {{ form_errors(form.duration) }}
+                {{ form_widget(form.duration, {'attr': {'class': 'au-input au-input--full'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.matiere) }}
+                {{ form_errors(form.matiere) }}
+                {{ form_widget(form.matiere, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.link) }}
+                {{ form_errors(form.link) }}
+                {{ form_widget(form.link, {'attr': {'class': 'au-input au-input--full'}}) }}
+            </div>
+            {{ form_rest(form) }}
+            <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Valider</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

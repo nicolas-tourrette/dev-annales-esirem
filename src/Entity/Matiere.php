@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -47,6 +49,16 @@ class Matiere
      * @ORM\OneToMany(targetEntity="App\Entity\Cours", mappedBy="matiere", cascade={"persist", "remove"})
      */
     private $cours;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Annale", mappedBy="matiere")
+     */
+    private $annales;
+
+    public function __construct()
+    {
+        $this->annales = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -113,6 +125,37 @@ class Matiere
         // set the owning side of the relation if necessary
         if ($cours->getMatiere() !== $this) {
             $cours->setMatiere($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Annale[]
+     */
+    public function getAnnales(): Collection
+    {
+        return $this->annales;
+    }
+
+    public function addAnnale(Annale $annale): self
+    {
+        if (!$this->annales->contains($annale)) {
+            $this->annales[] = $annale;
+            $annale->setMatiere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnale(Annale $annale): self
+    {
+        if ($this->annales->contains($annale)) {
+            $this->annales->removeElement($annale);
+            // set the owning side to null (unless already changed)
+            if ($annale->getMatiere() === $this) {
+                $annale->setMatiere(null);
+            }
         }
 
         return $this;

@@ -75,9 +75,16 @@ class YearController extends AbstractController {
             'date' => 'DESC'
         ));
 
+        $listAnnales = $em->getRepository("App:Annale")->findBy(array(
+            'matiere' => $id
+        ), array(
+            'date' => 'DESC'
+        ));
+
         return $this->render('app/matiereDetails.html.twig', array(
             'matiere' => $matiere[0],
-            'listCours' => $listCours
+            'listCours' => $listCours,
+            'listAnnales' => $listAnnales
         ));
     }
 }

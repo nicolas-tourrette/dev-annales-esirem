@@ -11,9 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Matiere;
 use App\Entity\Cours;
+use App\Entity\Annale;
 
 use App\Form\MatiereType;
 use App\Form\CoursType;
+use App\Form\AnnaleType;
 
 /**
  * @Route("/datas")
@@ -73,6 +75,35 @@ class DataController extends AbstractController {
         }
 
 		return $this->render('app/forms/form_cours.html.twig', array(
+			'form'  => $form->createView(),
+		));
+    }
+    
+    /**
+    * @Route("/annale/add", name="annaleAjout")
+    */
+    public function addAnnale(Request $request)
+	{
+        $em = $this->getDoctrine()->getManager();
+		$annale = new Annale();
+
+        $form = $this->get('form.factory')->create(AnnaleType::class, $annale);
+        
+        if ($request->isMethod('POST')) {
+			$form->handleRequest($request);
+			if ($form->isSubmitted() && $form->isValid()) {
+                $em->persist($annale);
+                $em->flush();
+                
+                return $this->redirectToRoute('matiereDetails', array(
+                    'id' => $annale->getMatiere()->getId(),
+                    'dpt' => $annale->getMatiere()->getDepartement(),
+                    'annee' => $annale->getMatiere()->getAnnee()
+                ));
+            }
+        }
+
+		return $this->render('app/forms/form_annale.html.twig', array(
 			'form'  => $form->createView(),
 		));
 	}
