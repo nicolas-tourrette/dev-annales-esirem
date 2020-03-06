@@ -1,0 +1,62 @@
+{# templates/app/matieres.html.twig #}
+
+{% extends "index.html.twig" %}
+
+{% block title %}
+Mon compte | {{ parent() }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item">
+    Mon compte
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Mon compte</strong>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-2">
+                    <img src="{{ asset(app.user.profilimage) }}" alt="{{ app.user.name }}" />
+                </div>
+                <div class="col-lg-8">
+                    <h2 class="title-6 mb-6" style="color: #000000;">{{ app.user.name }}</h2>
+                    <p>
+                        <span style="font-size: 75%;">{{ app.user.email }}</span><br>
+                        Votre profil est : {% if app.user.public == false %}privé{% else %}public{% endif %}.
+                    </p>
+                    <p>
+                        <ul class="vue-lists">
+                            <li>Date de naissance : {{ app.user.birthday|date("d/m/Y") }}</li>
+                            <li>Groupe : {{ app.user.usergroup }}</li>
+                            <li>Droits :
+                                <ul class="vue-lists">
+                                    {% for role in app.user.roles %}
+                                    {% if role == 'ROLE_ADMIN' %}
+                                    <li>Administrateur</li>
+                                    {% elseif role == 'ROLE_MODERATEUR' %}
+                                    <li>Modérateur</li>
+                                    {% elseif role == 'ROLE_USER' %}
+                                    <li>Utilisateur</li>
+                                    {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}
