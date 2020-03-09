@@ -23,8 +23,6 @@ else {
 	idForItem = CheminRepertoire[CheminRepertoire.length - 3];
 }
 
-console.log(idForItem);
-
 if (idForItem.indexOf("#") > 0) {
 	idForItem = idForItem.substring(0, idForItem.indexOf("#"));
 }

@@ -31,6 +31,18 @@
 
     <!-- Main CSS-->
     <link href="/css/theme.css" rel="stylesheet" media="all">
+
+    <script type="text/javascript">
+        function cryptm(m, o, n) {
+            if (!document.write) {
+                return false;
+            }
+            else {
+                var m; var o; var n;
+                document.write('<a style="text-decoration: none;" href="' + 'mailto:' + m + '@' + o + '.' + n + '">' + m + '@' + o + '.' + n + ' <img src="https://svgsilh.com/svg/303617-4caf50.svg" width="14" height="14"></a>');
+            }
+        }
+    </script>
     {% endblock %}
 </head>
 
@@ -585,6 +597,29 @@
                             <div class="page-content">
                                 <div class="row">
                                     {% block body %}
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <strong class="card-title">Bienvenue !</strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>
+                                                    Bienvenue sur le site de partage des cours et annales de l'ESIREM. Ce site est entièrement neuf (Mars 2020) et a pour objectif de faciliter l'accès aux ressources étudiantes de l'ESIREM. Ainsi, n'hésitez pas à y contribuer largement afin que chacun puisse en profiter, comme les autres l'ont fait avant vous.
+                                                </p>
+                                                <p>
+                                                    Si vous avez une question, je serai ravi de pouvoir vous aider, alors n'hésitez pas à me contacter directement sur mon adresse universitaire <script type="text/javascript">cryptm("nicolas_tourrette", "etu", "u-bourgogne.fr");</script>.
+                                                </p>
+                                                <p>
+                                                    Bonne navigation !<br><br>
+                                                </p>
+                                                <p>
+                                                    Nicolas TOURRETTE<br>
+                                                    Responsable du projet Annales ESIREM<br>
+                                                    4<sup>ème</sup> Année IE - Sécurité et Qualité des Réseaux
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                     {% endblock %}
                                 </div>
                                 <div class="row">
