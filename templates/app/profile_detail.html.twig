@@ -3,7 +3,7 @@
 {% extends "index.html.twig" %}
 
 {% block title %}
-Mon compte | {{ parent() }}
+Compte de {{ user.name }} | {{ parent() }}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -12,42 +12,39 @@ Mon compte | {{ parent() }}
     <span>/</span>
 </li>
 <li class="list-inline-item">
-    Mon compte
+    <a href="{{ path('annuaire') }}">Annuaire</a>
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    Compte de {{ user.name }}
 </li>
 {% endblock %}
 
 {% block body %}
-<div class="col-md-12" style="margin-bottom: 25px;">
-    <div class="overview-wrap">
-        <h2 class="title-1">MON COMPTE</h2>
-        <a class="au-btn au-btn-icon au-btn--blue" href="{{ path('annuaire') }}">
-            <i class="zmdi zmdi-accounts-list-alt"></i>Consulter l'annuaire
-        </a>
-    </div>
-</div>
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <strong class="card-title">Mon compte</strong>
+            <strong class="card-title">Compte de {{ user.name }}</strong>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-2">
-                    <img src="{{ asset(app.user.profilimage) }}" alt="{{ app.user.name }}" />
+                    <img src="{{ asset(user.profilimage) }}" alt="{{ user.name }}" />
                 </div>
                 <div class="col-lg-8">
-                    <h2 class="title-6 mb-6" style="color: #393939;">{{ app.user.name }}</h2>
+                    <h2 class="title-6 mb-6" style="color: #393939;">{{ user.name }}</h2>
                     <p>
-                        <span style="font-size: 75%;">{{ app.user.email }}</span><br>
-                        Votre profil est : {% if app.user.public == false %}privé{% else %}public{% endif %}.
+                        <span style="font-size: 75%;">{% if user.public == true %}{{ user.email }}{% else %}Le mail est privé.{% endif %}</span>
                     </p>
                     <p>
                         <ul class="vue-lists">
-                            <li>Date de naissance : {{ app.user.birthday|date("d/m/Y") }}</li>
-                            <li>Groupe : {{ app.user.usergroup }}</li>
+                            <li>Date de naissance : {{ user.birthday|date("d/m/Y") }}</li>
+                            <li>Groupe : {{ user.usergroup }}</li>
                             <li>Droits :
                                 <ul class="vue-lists">
-                                    {% for role in app.user.roles %}
+                                    {% for role in user.roles %}
                                     {% if role == 'ROLE_ADMIN' %}
                                     <li>Administrateur</li>
                                     {% elseif role == 'ROLE_MODERATEUR' %}
@@ -65,5 +62,4 @@ Mon compte | {{ parent() }}
         </div>
     </div>
 </div>
-
 {% endblock %}

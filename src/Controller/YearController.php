@@ -63,7 +63,7 @@ class YearController extends AbstractController {
     }
 
     /**
-    * @Route("/matiere/{id}", name="matiereDetails")
+    * @Route("/matiere/{id}", name="matiereDetails", requirements={"id" = "\d+"})
     */
     public function matiereDisplay(Request $request,  $dpt, $annee, $id){
         $em = $this->getDoctrine()->getManager();

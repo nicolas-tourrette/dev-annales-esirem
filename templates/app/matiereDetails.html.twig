@@ -50,11 +50,11 @@
                     </thead>
                     <tbody>
                         {% for cours in listCours %}
-                        <tr></tr>
-                        <td>{{ cours.date|date("d/m/Y") }}</td>
-                        <td>{{ cours.subject }}</td>
-                        <td>{{ cours.universityYear }}</td>
-                        <td><a class="btn btn-sm btn-outline-secondary" href="{{ cours.link }}">Accéder</a></td>
+                        <tr>
+                            <td>{{ cours.date|date("d/m/Y") }}</td>
+                            <td>{{ cours.subject }}</td>
+                            <td>{{ cours.universityYear }}</td>
+                            <td><a class="btn btn-sm btn-outline-secondary" href="{{ cours.link }}">Accéder</a></td>
                         </tr>
                         {% else %}
                         <tr>
@@ -91,7 +91,7 @@
                     </thead>
                     <tbody>
                         {% for annale in listAnnales %}
-                        <tr></tr>
+                        <tr>
                             <td>{{ annale.date|date("d/m/Y") }}</td>
                             <td>{{ annale.subject }}</td>
                             <td>{{ annale.duration }}</td>
