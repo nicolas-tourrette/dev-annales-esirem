@@ -66,6 +66,19 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
+     */
+    private $passwordRequestedAt;
+
+    /**
+    * @var string
+    *
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
+    private $token;
+
+    /**
      * A visual identifier that represents this user.
      *
      * @see UserInterface
@@ -205,6 +218,28 @@ class User implements UserInterface
     {
         $this->email = $email;
 
+        return $this;
+    }
+
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    public function setPasswordRequestedAt($passwordRequestedAt)
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+        return $this;
+    }
+
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    public function setToken($token)
+    {
+        $this->token = $token;
         return $this;
     }
 }

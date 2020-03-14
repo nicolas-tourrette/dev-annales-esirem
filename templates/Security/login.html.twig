@@ -58,10 +58,21 @@
                                 </button>
                             </div>
                             {% endif %}
+                            {% for message in app.session.flashbag.get('success') %}
+                            <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
+                                <i class="zmdi zmdi-check"></i>
+                                <span class="content">{{ message }}</span>
+                                <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">
+                                        <i class="zmdi zmdi-close-circle"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            {% endfor %}
                             <form action="{{ path('login_check') }}" method="post">
                                 <div class="form-group">
                                     <label>Identifiant ENT</label>
-                                    <input class="au-input au-input--full" type="text" id="username" name="_username" placeholder="ab123456" maxlength="8"{% if app.request.query is defined %} value="{{ app.request.query.get('last_username') }}"{% endif %}>
+                                    <input class="au-input au-input--full" type="text" id="username" name="_username" placeholder="ab123456" maxlength="8"{% if app.request.query is defined %} value="{{ app.request.query.get('last_username') }}"{% endif %}{% if _security.last_username is defined %} value="{{ _security.last_username }}"{% endif %}>
                                 </div>
                                 <div class="form-group">
                                     <label>Mot de passe</label>
@@ -72,7 +83,7 @@
                                         <input type="checkbox" id="remember_me" name="_remember_me">Se rappeler de moi
                                     </label>
                                     <label>
-                                        <a href="#">Mot de passe oublié ?</a>
+                                        <a href="{{ path('forgottenPass') }}">Mot de passe oublié ?</a>
                                     </label>
                                 </div>
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

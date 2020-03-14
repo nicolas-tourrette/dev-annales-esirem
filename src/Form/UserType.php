@@ -29,7 +29,7 @@ class UserType extends AbstractType
                 array(
                     'label' => "Identifiant ENT",
                     'required' => true,
-                    'attr' => ["placeholder" => "ab123456"]
+                    'attr' => ["placeholder" => "ab123456", 'maxlength' => "8"]
                 )
             )
             ->add('password',

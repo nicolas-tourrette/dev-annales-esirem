@@ -4,8 +4,11 @@
 namespace App\Service;
 
 use App\Entity\User;
+
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class ApplicationMailer
 {
@@ -21,17 +24,21 @@ class ApplicationMailer
 
     public function sendNotificationNewUser(User $user)
     {
-        $message = new Email();
+        $message = new TemplatedEmail();
 
         $message
-            ->from('hello@example.com')
-            ->to($user->getEmail())
+            ->from(new Address('esirem@nicolas-t.ovh', 'Annales ESIREM'))
+            ->to(new Address($user->getEmail(), $user->getName()))
             //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
+            ->bcc(new Address('postmaster@nicolas-t.ovh', 'Administrateur Annales ESIREM'))
+            ->replyTo(new Address('postmaster@nicolas-t.ovh', 'No-Reply Annales ESIREM'))
             //->priority(Email::PRIORITY_HIGH)
-            ->subject('Votre compte Annales ESIREM')
-            ->html('<p>Votre compte Annales ESIREM a bien été créé. Merci. Connectez-vous sur <a href="https://esirem.nicolas-t.ovh/">ce lien</a>.</p>')
+            ->subject('Création de votre compte Annales ESIREM')
+            ->htmlTemplate('email/new_account.html.twig')
+            ->context(array(
+                'user' => $user
+            ))
+            //->html('<p>Votre compte Annales ESIREM a bien été créé. Merci. Connectez-vous sur <a href="https://esirem.nicolas-t.ovh/">ce lien</a>.</p>')
         ;
 
         $this->mailer->send($message);
