@@ -81,6 +81,14 @@ p {
     margin: 0;
 }
 
+.page-content p{
+    margin-bottom: 12px;
+}
+
+.copyright p{
+    margin-bottom: 0;
+}
+
 .table-responsive {
     padding-right: 1px;
 }

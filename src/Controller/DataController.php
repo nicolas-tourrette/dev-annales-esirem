@@ -109,5 +109,28 @@ class DataController extends AbstractController {
 		return $this->render('app/forms/form_annale.html.twig', array(
 			'form'  => $form->createView(),
 		));
-	}
+    }
+    
+    /**
+     * @Route("/search", name="search")
+     */
+    public function resourceSearch(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isMethod('POST')) {
+            $listOfCourses = $em->getRepository("App:Cours")->findByKeyword($request->request->get('search'));
+            $listOfAnnales = $em->getRepository("App:Annale")->findByKeyword($request->request->get('search'));
+            if($listOfCourses != [] || $listOfAnnales != []){
+                return $this->render('app/search.html.twig', array(
+                    'keyword' => $request->request->get('search'),
+                    'listOfCourses'  => $listOfCourses,
+                    'listOfAnnales'  => $listOfAnnales
+                ));
+            }
+            $request->getSession()->getFlashBag()->add('info', 'Cette recherche n\'a rien donné.');
+            return $this->redirectToRoute('index');
+        }
+
+        $request->getSession()->getFlashBag()->add('info', 'Vous n\'avez pas effectué de recherche.');
+        return $this->redirectToRoute('index');
+    }
 }

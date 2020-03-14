@@ -18,26 +18,35 @@ class YearController extends AbstractController {
     /**
     * @Route("/", name="accueilAnnee")
     */
-    public function index(){
-        return $this->render('index.html.twig');
+    public function index($dpt, $annee){
+        return $this->render('app/indexAnnee.html.twig', array(
+                'dpt' => $dpt,
+                'annee' => $annee
+        ));
     }
 
     /**
     * @Route("/agenda", name="agendaAnnee")
     */
-    public function agenda(Request $request, $annee){
+    public function agenda(Request $request, $dpt, $annee){
 
         $request->getSession()->getFlashBag()->add('warning', 'Cette fonction n\'est pas disponible.');
-        return $this->render('index.html.twig');
+        return $this->render('app/indexAnnee.html.twig', array(
+                'dpt' => $dpt,
+                'annee' => $annee
+        ));
     }
 
     /**
     * @Route("/informations", name="infosAnnee")
     */
-    public function informations(Request $request, $annee){
+    public function informations(Request $request, $dpt, $annee){
 
         $request->getSession()->getFlashBag()->add('warning', 'Cette fonction n\'est pas disponible. Reportez-vous à un groupe Facebook ou Messenger.');
-        return $this->render('index.html.twig');
+        return $this->render('app/indexAnnee.html.twig', array(
+                'dpt' => $dpt,
+                'annee' => $annee
+        ));
     }
 
     /**

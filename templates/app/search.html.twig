@@ -1,0 +1,96 @@
+{# templates/app/matieres.html.twig #}
+
+{% extends "index.html.twig" %}
+
+{% block title %}
+Résultats de recherche "{{ keyword }}" | {{ parent() }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item">
+    Recherche
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    {{ keyword }}
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Résultats de la recherche "{{ keyword }}"</strong>
+        </div>
+        <div class="card-body">
+            <p>Voici les cours disponibles pour ce mot-clé :</p>
+            <div class="table-responsive table--no-card m-b-30">
+                <table class="table table-striped table-earning" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>Emplacement</th>
+                            <th>Date</th>
+                            <th>Sujet</th>
+                            <th>Année universitaire</th>
+                            <th>Lien</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cours in listOfCourses %}
+                        <tr>
+                            <td>{{ cours.matiere.nom }} ({{ cours.matiere.departement }} - {{ cours.matiere.annee }})</td>
+                            <td>{{ cours.date|date("d/m/Y") }}</td>
+                            <td>{{ cours.subject }}</td>
+                            <td>{{ cours.universityYear }}</td>
+                            <td><a class="btn btn-sm btn-outline-secondary" href="{{ cours.link }}">Accéder</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5">Aucun cours trouvé pour ce mot-clé.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive table--no-card m-b-30">
+                <table class="table table-striped table-earning" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>Emplacement</th>
+                            <th>Date</th>
+                            <th>Sujet</th>
+                            <th>Durée</th>
+                            <th>Année universitaire</th>
+                            <th>Lien</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for annale in listOfAnnales %}
+                        <tr>
+                            <td>{{ annale.matiere.nom }} ({{ annale.matiere.departement }} - {{ annale.matiere.annee }})</td>
+                            <td>{{ annale.date|date("d/m/Y") }}</td>
+                            <td>{{ annale.subject }}</td>
+                            <td>{{ annale.duration }}</td>
+                            <td>{{ annale.universityYear }}</td>
+                            <td><a class="btn btn-sm btn-outline-secondary" href="{{ annale.link }}">Accéder</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6">Aucune annale trouvée pour ce mot-clé.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{# templates/app/indexAnnee.html.twig #}
+
+{% extends "index.html.twig" %}
+
+{% block title %}
+Accueil {{ dpt }} - {{ annee }} | {{ parent() }}
+{% endblock %}
+ 
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item">
+    {{ dpt }}
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    <a
+        href="/{{ dpt }}/{{ annee }}">
+        {{ annee }}
+    </a>
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Groupe {{ dpt }} - {{ annee }}</strong>
+        </div>
+        <div class="card-body">
+            <p>
+                {% if annee == "1A" %}Félicitations pour votre admission à l'ESIREM en {{ annee }} {{ dpt }} !{% else %}Heureux de vous retrouver en {{ annee }} {{ dpt }} !{% endif %} Cette partie est dédiée au partage des informations, des cours, des TD et des annales à l'ESIREM pour votre année. Ici, vous retrouverez toutes les matières enseignées à l'ESIREM, et vous êtes dores et déjà invités à contribuer à la richesse de notre base documentaire.
+            </p>
+            <p>
+                Pour cela, répertoriez les documents sur le site à l'aide de la classification par matière et par type de documents. <strong>Nous n'hébergeons pas les documents !</strong> Il vous faudra les mettre en ligne sur un cloud personnel (type OneDrive, Google Drive, Mega, etc.). La base de données référence seulement des liens. Partagez les documents en mode "public avec lien" sur votre cloud et saisissez le dans l'emplacement prévu.
+            </p>
+            <p>
+                Nous vous souhaitons une bonne année universitaire {{ annee_universitaire }} {% if annee < "3A" %}en compagnie de vos camarades des années supérieures{% endif %} !
+            </p>
+            <p>
+                Les Administrateurs
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

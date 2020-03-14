@@ -215,7 +215,7 @@
                                 <p>Nous serions heureux de faire votre connaissance. <a href="{{ path('register') }}">Créez votre espace</a> et accédez à toute notre bibliothèque d'annales. Déjà membre ? <a href="{{ path('login') }}">Connectez-vous</a> pour profitez de la bibliothèque disponible !</p>
                             {% endif %}
                             </div>
-                            <form class="form-header form-header2" action="" method="post">
+                            <form class="form-header form-header2" action="{{ path('search') }}" method="post">
                                 <input class="au-input au-input--w435" type="text" name="search" placeholder="Rechercher un document...">
                                 <button class="au-btn--submit" type="submit">
                                     <i class="zmdi zmdi-search"></i>
@@ -610,7 +610,8 @@
                                                     Si vous avez une question, je serai ravi de pouvoir vous aider, alors n'hésitez pas à me contacter directement sur mon adresse universitaire <script type="text/javascript">cryptm("nicolas_tourrette", "etu", "u-bourgogne.fr");</script>.
                                                 </p>
                                                 <p>
-                                                    Bonne navigation !<br><br>
+                                                    Bonne navigation et bonne année universitaire {{ annee_universitaire }} en compagnie de vos
+                                                    camarades !
                                                 </p>
                                                 <p>
                                                     Nicolas TOURRETTE<br>

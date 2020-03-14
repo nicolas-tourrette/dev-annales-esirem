@@ -19,6 +19,16 @@ class CoursRepository extends ServiceEntityRepository
         parent::__construct($registry, Cours::class);
     }
 
+    public function findByKeyword($keyword){
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.subject LIKE :keyword')
+            ->setParameter('keyword', '%'.$keyword.'%')
+            ->orderBy('c.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Cours[] Returns an array of Cours objects
     //  */

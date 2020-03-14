@@ -19,6 +19,16 @@ class AnnaleRepository extends ServiceEntityRepository
         parent::__construct($registry, Annale::class);
     }
 
+    public function findByKeyword($keyword){
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.subject LIKE :keyword')
+            ->setParameter('keyword', '%'.$keyword.'%')
+            ->orderBy('a.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Annale[] Returns an array of Annale objects
     //  */
