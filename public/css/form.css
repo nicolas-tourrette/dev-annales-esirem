@@ -8,3 +8,8 @@ div.form-group ul li::before {
     color: #a94442;
     content: '❗ ';
 }
+
+.required::after{
+    content: " *";
+    color: red;
+}

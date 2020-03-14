@@ -1,0 +1,96 @@
+{# templates/app/acc_profil.html.twig #}
+
+{% extends "index.html.twig" %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="/css/form.css" rel="stylesheet" media="all">
+{% endblock %}
+
+{% block title %}
+Modifier mon compte | {{ parent() }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item">
+    Mon compte
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12" style="margin-bottom: 25px;">
+    <div class="overview-wrap">
+        <h2 class="title-1">MON COMPTE</h2>
+        <a class="au-btn au-btn-icon au-btn--blue" href="{{ path('annuaire') }}">
+            <i class="zmdi zmdi-accounts-list-alt"></i>Consulter l'annuaire
+        </a>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Mon compte</strong>
+        </div>
+        <div class="card-body">
+            <div class="row" style="justify-content: center;">
+                {{ form_start(form) }}
+                {% if form_errors(form) %}
+                <div class="form-group">
+                    <div class="alert au-alert-danger alert-dismissible fade show au-alert" role="alert" style="margin-bottom: 20px;">
+                        <i class="zmdi zmdi-alert-triangle"></i>
+                        <span class="content"><strong>Une erreur s'est produite !</strong>
+                            {{ form_errors(form) }}
+                        </span>
+                        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">
+                                <i class="zmdi zmdi-close-circle"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    {{ form_label(form.name) }}
+                    {{ form_errors(form.name) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'au-input au-input--full'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.email) }}
+                    {{ form_errors(form.email) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'au-input au-input--full'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.birthday) }}
+                    {{ form_errors(form.birthday) }}
+                    {{ form_widget(form.birthday, {'attr': {'class': 'au-input au-input--full'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.usergroup) }}
+                    {{ form_errors(form.usergroup) }}
+                    {{ form_widget(form.usergroup, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="login-checkbox">
+                    {{ form_errors(form.public) }}
+                    <label>
+                        <input type="checkbox" id="user_edit_public" name="user_edit[public]" {% if app.user.public == true %}checked=""{% endif %}>
+                        Rendre mon profil visible dans l'annuaire.
+                    </label>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.profilimage) }}
+                    {{ form_errors(form.profilimage) }}
+                    {{ form_widget(form.profilimage, {'attr': {'class': 'au-input au-input--full'}}) }}
+                </div>
+                <input type="hidden" id="user_edit__token" name="user_edit[_token]" value="{{ csrf_token('update-account') }}">
+                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Mettre à jour mon compte</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
