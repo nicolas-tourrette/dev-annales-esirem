@@ -7,6 +7,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 
 class MainController extends AbstractController {
@@ -14,7 +15,9 @@ class MainController extends AbstractController {
     /**
     * @Route("/", name="index")
     */
-    public function index(){
+    public function index(Request $request){
+        $request->getSession()->getFlashBag()->add('coronavirus', "");
+
         return $this->render('index.html.twig', array(
                 'lastVersion' => $this->getLastVersion()
         ));
@@ -35,8 +38,6 @@ class MainController extends AbstractController {
      * @Route("/informations", name="informations")
      */
     public function informations(){
-        
-
         return $this->render('pages/informations.html.twig', array(
             'listVersions' => $this->getVersions()
         ));

@@ -85,6 +85,7 @@ class SecurityController extends AbstractController
         // création d'un formulaire "à la volée", afin que l'internaute puisse renseigner son mail
         $form = $this->createFormBuilder()
             ->add('email', EmailType::class, [
+                'label' => "Adresse e-mail",
                 'constraints' => [
                     new Email(),
                     new NotBlank()

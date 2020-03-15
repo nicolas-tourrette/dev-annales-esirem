@@ -53,7 +53,7 @@
             <div class="container">
                 <div class="header4-wrap">
                     <div class="header__logo">
-                        <a href="#">
+                        <a href="{{ path('index') }}">
                             <img src="https://esirem.u-bourgogne.fr/wp-content/uploads/2019/12/cropped-logo-couleur-site-web.png" alt="ESIREM" height="30px" />
                         </a>
                         <h1 class="title-2" style="margin-left: 10px;"><strong>Annales</strong><br>
@@ -233,10 +233,20 @@
             {% block alerts %}
             <section class="alert-wrap p-t-70 p-b-70">
                 <div class="container">
+                    {% for message in app.session.flashbag.get('coronavirus') %}
+                    <div class="row alert alert-dismissible fade show" style="text-align: center; margin-bottom: 30px;" role="alert">
+                        <span><img src="https://www.education.gouv.fr/sites/default/files/2020-03/coronavirus---gestes-barri-re-51380.jpg" width="50%"></span>
+                        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">
+                                <i class="zmdi zmdi-close-circle"></i>
+                            </span>
+                        </button>
+                    </div>
+                    {% endfor %}
                     <!-- ALERT-->
-                    <div class="alert au-alert-warning alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
-                        <i class="zmdi zmdi-wrench"></i>
-                        <span class="content">Ceci est une version beta !</span>
+                    <div class="alert au-alert-info alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
+                        <i class="zmdi zmdi-alert-circle"></i>
+                        <span class="content">Pour des raisons de test, seuls certains étudiants possèdent un compte. Un message vous avertira de l'ouverture du service (après la date de release publique). En vous remerciant de votre compréhension.</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">
                                 <i class="zmdi zmdi-close-circle"></i>

@@ -40,3 +40,14 @@ services:
             - "@app.email.application_mailer"
         tags:
             - { name: doctrine.event_listener, event: postPersist }
+
+    app.beta.html_adder:
+        class: App\Beta\BetaHTMLAdder
+
+    app.beta.listener:
+        class: App\Beta\BetaListener
+        arguments:
+            - "@app.beta.html_adder"
+            - "2020-04-01"
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: processBeta }
