@@ -1,0 +1,34 @@
+{# templates/bundles/TwigBundle/Exception/error403.html.twig #}
+
+{% extends "index.html.twig" %}
+
+{% block title %}
+Erreur {{ status_code }} | {{ parent() }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    {{ status_code }}
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12">
+    <h2 class="title-1">Erreur {{ status_code }}: {{ status_text }}</h2>
+
+    <p>
+        Une erreur interne est survenue. Si le problème persiste, merci de contacter un administrateur.
+    </p>
+    {% if exception.message is defined %}
+    <p>
+        Plus d'informations :<br>
+        {{ exception.message }}
+    </p>
+    {% endif %}
+</div>
+
+{% endblock %}
