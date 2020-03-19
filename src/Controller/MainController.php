@@ -24,14 +24,26 @@ class MainController extends AbstractController {
     }
 
     public function notifications($limit){
-        $listNotifications = array(
-            ["message" => "Test nofitification 1", "date" => "2020-01-20", "icon" => "alert-triangle", "category" => "danger"],
-            ["message" => "Test nofitification 2", "date" => "2020-02-15", "icon" => "badge-check", "category" => "info"]
-        );
+        $em = $this->getDoctrine()->getManager();
+        $this->purgeNotifications();
+
+        $listNotifications = $em->getRepository("App:Notification")->findMyNotifications($this->getUser()->getUsername(), $this->getUser()->getUsergroup(), $limit);
 
         return $this->render('notifications.html.twig', array(
             'listNotifications' => $listNotifications)
         );
+    }
+
+    private function purgeNotifications(){
+        $em = $this->getDoctrine()->getManager();
+
+        $date = new \Datetime("30 days ago");
+        $listNotifs = $em->getRepository("App:Notification")->getNotificationsOlderThan($date);
+
+        foreach($listNotifs as $notif){
+            $em->remove($notif);
+        }
+        $em->flush(); 
     }
 
     /**

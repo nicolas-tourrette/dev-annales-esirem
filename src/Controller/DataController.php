@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Matiere;
 use App\Entity\Cours;
 use App\Entity\Annale;
+use App\Entity\Notification;
 
 use App\Form\MatiereType;
 use App\Form\CoursType;
@@ -64,7 +65,14 @@ class DataController extends AbstractController {
         if ($request->isMethod('POST')) {
 			$form->handleRequest($request);
 			if ($form->isSubmitted() && $form->isValid()) {
+                $notif = new Notification();
+                $notif->setMessage($this->getUser()->getName()." a ajouté le cours \"".$cours->getSubject()."\" de la matière ".$cours->getMatiere()->getNom().".");
+                $notif->setCategory("info");
+                $notif->setIcon("graduation-cap");
+                $notif->setRecipient($cours->getMatiere()->getDepartement().substr($cours->getMatiere()->getAnnee(), 0, 1));
+
                 $em->persist($cours);
+                $em->persist($notif);
                 $em->flush();
                 
                 $request->getSession()->getFlashBag()->add('info', 'Le cours bien été ajouté.');
@@ -94,7 +102,14 @@ class DataController extends AbstractController {
         if ($request->isMethod('POST')) {
 			$form->handleRequest($request);
 			if ($form->isSubmitted() && $form->isValid()) {
+                $notif = new Notification();
+                $notif->setMessage($this->getUser()->getName()." a ajouté l'annale \"".$annale->getSubject()."\" de la matière ".$annale->getMatiere()->getNom().".");
+                $notif->setCategory("info");
+                $notif->setIcon("file-text");
+                $notif->setRecipient($annale->getMatiere()->getDepartement().substr($annale->getMatiere()->getAnnee(), 0, 1));
+
                 $em->persist($annale);
+                $em->persist($notif);
                 $em->flush();
                 
                 $request->getSession()->getFlashBag()->add('info', 'L\'annale a bien été ajoutée.');

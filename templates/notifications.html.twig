@@ -2,7 +2,7 @@
     <i class="zmdi zmdi-notifications"></i>
     <div class="notifi-dropdown js-dropdown">
         <div class="notifi__title">
-            <p>Vous avez {{ listNotifications|length }} notification{% if listNotifications|length > 0 %}s{% endif %}.</p>
+            <p>Vous avez {{ listNotifications|length }} notification{% if listNotifications|length > 1 %}s{% endif %}.</p>
         </div>
         {% for notification in listNotifications %}
         <div class="notifi__item">
