@@ -27,7 +27,13 @@ class MainController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
         $this->purgeNotifications();
 
-        $listNotifications = $em->getRepository("App:Notification")->findMyNotifications($this->getUser()->getUsername(), $this->getUser()->getUsergroup(), $limit);
+        if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')){
+            $listNotifications = $em->getRepository("App:Notification")->findMyNotifications($this->getUser()->getUsername(), $this->getUser()->getUsergroup(), $limit);
+        }
+        else{
+            $listNotifications = [];
+        }
+        
 
         return $this->render('notifications.html.twig', array(
             'listNotifications' => $listNotifications)
