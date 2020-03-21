@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use App\Entity\Matiere;
 use App\Entity\Cours;
@@ -139,6 +141,20 @@ class DataController extends AbstractController {
     public function deleteCours(Request $request, $id)
 	{
         $em = $this->getDoctrine()->getManager();
+
+        if(!$this->get('security.authorization_checker')->isGranted('ROLE_MODERATEUR')) {
+            $notif = new Notification();
+            $notif->setMessage($this->getUser()->getName()." a tenté de supprimer un cours sans y être autorisé.");
+            $notif->setCategory("warning");
+            $notif->setIcon("alert-polygon");
+            $notif->setRecipient("ROLE_ADMIN");
+
+            $em->persist($notif);
+            $em->flush();
+
+			throw new AccessDeniedException('Vous n\'avez pas l\'autorisation d\'effectuer cette action ! Un administrateur en est averti.');
+        }
+        
 		$cours = $em->getRepository("App:Cours")->find($id);
         
         if ($cours == null) {
@@ -261,6 +277,20 @@ class DataController extends AbstractController {
     public function deleteAnnale(Request $request, $id)
 	{
         $em = $this->getDoctrine()->getManager();
+
+        if(!$this->get('security.authorization_checker')->isGranted('ROLE_MODERATEUR')) {
+            $notif = new Notification();
+            $notif->setMessage($this->getUser()->getName()." a tenté de supprimer une annale sans y être autorisé.");
+            $notif->setCategory("warning");
+            $notif->setIcon("alert-polygon");
+            $notif->setRecipient("ROLE_ADMIN");
+
+            $em->persist($notif);
+            $em->flush();
+            
+			throw new AccessDeniedException('Vous n\'avez pas l\'autorisation d\'effectuer cette action ! Un administrateur en est averti.');
+        }
+        
 		$annale = $em->getRepository("App:Annale")->find($id);
         
         if ($annale == null) {

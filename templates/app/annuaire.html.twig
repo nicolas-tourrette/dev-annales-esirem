@@ -44,7 +44,7 @@ Annuaire | {{ parent() }}
                         <tr>
                             <td>
                                 {% if "ROLE_ADMIN" in user.roles or "ROLE_MODERATEUR" in user.roles %}
-                                <i class="fas fa-user-shield" style="color: #28a745;"></i>
+                                <i class="fas fa-user-shield" style="color: #28a745;" title="Utilisateur priviligié"></i>
                                 {% endif %}
                                 <a href="{{ path('profileDetails', {'username': user.username}) }}">{{ user.name }}</a>
                             </td>

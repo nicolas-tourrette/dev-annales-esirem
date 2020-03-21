@@ -30,14 +30,16 @@ class NotificationRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findMyNotifications($user, $group, $limit)
+    public function findMyNotifications($user, $group, $role, $limit)
     {
         return $this->createQueryBuilder('n')
             ->andWhere('n.recipient = :groupe')
             ->orWhere('n.recipient = \'all\'')
             ->orWhere('n.recipient = :user')
+            ->orWhere('n.recipient = :role')
             ->setParameter('groupe', $group)
             ->setParameter('user', $user)
+            ->setParameter('role', $role)
             ->orderBy('n.id', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
@@ -45,28 +47,32 @@ class NotificationRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findMyNotificationsNumber($user, $group)
+    public function findMyNotificationsNumber($user, $group, $role)
     {
         return $this->createQueryBuilder('n')
             ->select("count(n)")
             ->andWhere('n.recipient = :groupe')
             ->orWhere('n.recipient = \'all\'')
             ->orWhere('n.recipient = :user')
+            ->orWhere('n.recipient = :role')
             ->setParameter('groupe', $group)
             ->setParameter('user', $user)
+            ->setParameter('role', $role)
             ->getQuery()
             ->getSingleScalarResult()
         ;
     }
 
-    public function findAllMyNotifications($user, $group)
+    public function findAllMyNotifications($user, $group, $role)
     {
         return $this->createQueryBuilder('n')
             ->andWhere('n.recipient = :groupe')
             ->orWhere('n.recipient = \'all\'')
             ->orWhere('n.recipient = :user')
+            ->orWhere('n.recipient = :role')
             ->setParameter('groupe', $group)
             ->setParameter('user', $user)
+            ->setParameter('role', $role)
             ->orderBy('n.id', 'DESC')
             ->getQuery()
             ->getResult()

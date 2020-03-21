@@ -43,7 +43,7 @@ Compte de {{ user.name }} | {{ parent() }}
                     <div style="display: flex;">
                         <h2 class="title-6 mb-6" style="color: #393939;">{{ user.name }}</h2>
                         {% if "ROLE_ADMIN" in user.roles or "ROLE_MODERATEUR" in user.roles %}
-                        &nbsp;&nbsp;<i class="title-6 mb-6 fas fa-user-shield" style="color: #28a745;"></i>
+                        &nbsp;&nbsp;<i class="title-6 mb-6 fas fa-user-shield" style="color: #28a745;" title="Utilisateur priviligié"></i>
                         {% endif %}
                     </div>
                     <p>

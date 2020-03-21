@@ -28,8 +28,12 @@ class MainController extends AbstractController {
         $this->purgeNotifications();
 
         if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')){
-            $listNotifications = $em->getRepository("App:Notification")->findMyNotifications($this->getUser()->getUsername(), $this->getUser()->getUsergroup(), $limit);
-            $notifNumber = $em->getRepository("App:Notification")->findMyNotificationsNumber($this->getUser()->getUsername(), $this->getUser()->getUsergroup());
+            $username = $this->getUser()->getUsername();
+            $usergroup = $this->getUser()->getUsergroup();
+            $userRole = $this->getUser()->getRoles()[0];
+
+            $listNotifications = $em->getRepository("App:Notification")->findMyNotifications($username, $usergroup, $userRole, $limit);
+            $notifNumber = $em->getRepository("App:Notification")->findMyNotificationsNumber($username, $usergroup, $userRole);
         }
         else{
             $listNotifications = [];

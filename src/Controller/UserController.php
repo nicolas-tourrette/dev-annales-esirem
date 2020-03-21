@@ -34,7 +34,12 @@ class UserController extends AbstractController {
     */
     public function notifications(){
         $em = $this->getDoctrine()->getManager();
-        $listNotifications = $em->getRepository("App:Notification")->findAllMyNotifications($this->getUser()->getUsername(), $this->getUser()->getUsergroup());
+
+        $username = $this->getUser()->getUsername();
+        $usergroup = $this->getUser()->getUsergroup();
+        $userRole = $this->getUser()->getRoles()[0];
+
+        $listNotifications = $em->getRepository("App:Notification")->findAllMyNotifications($username, $usergroup, $userRole);
         
         return $this->render('app/acc_notifications.html.twig', array(
             'listNotifications' => $listNotifications
