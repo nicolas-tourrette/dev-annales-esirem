@@ -32,7 +32,7 @@ class Cours
     private $link;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Matiere", inversedBy="cours", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Matiere", inversedBy="cours")
      * @ORM\JoinColumn(nullable=false)
      */
     private $matiere;

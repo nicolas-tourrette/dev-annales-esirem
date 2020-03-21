@@ -29,15 +29,18 @@ class MainController extends AbstractController {
 
         if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')){
             $listNotifications = $em->getRepository("App:Notification")->findMyNotifications($this->getUser()->getUsername(), $this->getUser()->getUsergroup(), $limit);
+            $notifNumber = $em->getRepository("App:Notification")->findMyNotificationsNumber($this->getUser()->getUsername(), $this->getUser()->getUsergroup());
         }
         else{
             $listNotifications = [];
+            $notifNumber = 0;
         }
         
 
         return $this->render('notifications.html.twig', array(
-            'listNotifications' => $listNotifications)
-        );
+            'listNotifications' => $listNotifications,
+            'notifNumber' => $notifNumber
+        ));
     }
 
     private function purgeNotifications(){

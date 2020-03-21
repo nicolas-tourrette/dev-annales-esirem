@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use App\Entity\Matiere;
 use App\Entity\Cours;
@@ -67,7 +68,7 @@ class DataController extends AbstractController {
 			if ($form->isSubmitted() && $form->isValid()) {
                 $notif = new Notification();
                 $notif->setMessage($this->getUser()->getName()." a ajouté le cours \"".$cours->getSubject()."\" de la matière ".$cours->getMatiere()->getNom().".");
-                $notif->setCategory("info");
+                $notif->setCategory("success");
                 $notif->setIcon("graduation-cap");
                 $notif->setRecipient($cours->getMatiere()->getDepartement().substr($cours->getMatiere()->getAnnee(), 0, 1));
 
@@ -88,6 +89,91 @@ class DataController extends AbstractController {
 			'form'  => $form->createView(),
 		));
     }
+
+    /**
+    * @Route("/cours/edit/{id}", name="coursEdition", requirements={"id"="\d+"})
+    */
+    public function editCours(Request $request, $id)
+	{
+        $em = $this->getDoctrine()->getManager();
+        $cours = $em->getRepository("App:Cours")->find($id);
+        
+        if ($cours == null) {
+			throw new NotFoundHttpException("Ce cours n'existe pas.");
+		}
+
+        $form = $this->get('form.factory')->create(CoursType::class, $cours);
+        
+        if ($request->isMethod('POST')) {
+			$form->handleRequest($request);
+			if ($form->isSubmitted() && $form->isValid()) {
+                $notif = new Notification();
+                $notif->setMessage($this->getUser()->getName()." a mis à jour le cours \"".$cours->getSubject()."\" de la matière ".$cours->getMatiere()->getNom().".");
+                $notif->setCategory("info");
+                $notif->setIcon("graduation-cap");
+                $notif->setRecipient($cours->getMatiere()->getDepartement().substr($cours->getMatiere()->getAnnee(), 0, 1));
+
+                $em->persist($cours);
+                $em->persist($notif);
+                $em->flush();
+                
+                $request->getSession()->getFlashBag()->add('info', 'Le cours bien été mis à jour.');
+                return $this->redirectToRoute('matiereDetails', array(
+                    'id' => $cours->getMatiere()->getId(),
+                    'dpt' => $cours->getMatiere()->getDepartement(),
+                    'annee' => $cours->getMatiere()->getAnnee()
+                ));
+            }
+        }
+
+		return $this->render('app/forms/form_cours.html.twig', array(
+            'form'  => $form->createView(),
+            'id' => $id,
+            'subject' => $cours->getSubject()
+		));
+    }
+
+    /**
+    * @Route("/cours/delete/{id}", name="coursDelete", requirements={"id"="\d+"})
+    */
+    public function deleteCours(Request $request, $id)
+	{
+        $em = $this->getDoctrine()->getManager();
+		$cours = $em->getRepository("App:Cours")->find($id);
+        
+        if ($cours == null) {
+			throw new NotFoundHttpException("Ce cours n'existe pas.");
+		}
+
+        $form = $this->get('form.factory')->create();
+        
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            $submittedToken = $request->request->get('token');
+			if ($this->isCsrfTokenValid('delete-item', $submittedToken)) {
+                $notif = new Notification();
+                $notif->setMessage($this->getUser()->getName()." a supprimé le cours \"".$cours->getSubject()."\" de la matière ".$cours->getMatiere()->getNom().".");
+                $notif->setCategory("danger");
+                $notif->setIcon("graduation-cap");
+                $notif->setRecipient($cours->getMatiere()->getDepartement().substr($cours->getMatiere()->getAnnee(), 0, 1));
+
+                $em->remove($cours);
+                $em->persist($notif);
+                $em->flush();
+                
+                $request->getSession()->getFlashBag()->add('info', 'Le cours a bien été supprimé.');
+            }
+            else{
+				$request->getSession()->getFlashBag()->add('danger', 'Une erreur est survenue.');
+			}
+        }
+
+		return $this->redirectToRoute('matiereDetails', array(
+            'id' => $cours->getMatiere()->getId(),
+            'dpt' => $cours->getMatiere()->getDepartement(),
+            'annee' => $cours->getMatiere()->getAnnee()
+        ));
+    }
     
     /**
     * @Route("/annale/add", name="annaleAjout")
@@ -104,7 +190,7 @@ class DataController extends AbstractController {
 			if ($form->isSubmitted() && $form->isValid()) {
                 $notif = new Notification();
                 $notif->setMessage($this->getUser()->getName()." a ajouté l'annale \"".$annale->getSubject()."\" de la matière ".$annale->getMatiere()->getNom().".");
-                $notif->setCategory("info");
+                $notif->setCategory("success");
                 $notif->setIcon("file-text");
                 $notif->setRecipient($annale->getMatiere()->getDepartement().substr($annale->getMatiere()->getAnnee(), 0, 1));
 
@@ -124,6 +210,91 @@ class DataController extends AbstractController {
 		return $this->render('app/forms/form_annale.html.twig', array(
 			'form'  => $form->createView(),
 		));
+    }
+
+    /**
+    * @Route("/annale/edit/{id}", name="annaleEdition", requirements={"id"="\d+"})
+    */
+    public function editAnnale(Request $request, $id)
+	{
+        $em = $this->getDoctrine()->getManager();
+		$annale = $em->getRepository("App:Annale")->find($id);
+        
+        if ($annale == null) {
+			throw new NotFoundHttpException("Cette annale n'existe pas.");
+		}
+
+        $form = $this->get('form.factory')->create(AnnaleType::class, $annale);
+        
+        if ($request->isMethod('POST')) {
+			$form->handleRequest($request);
+			if ($form->isSubmitted() && $form->isValid()) {
+                $notif = new Notification();
+                $notif->setMessage($this->getUser()->getName()." a mis à jour l'annale \"".$annale->getSubject()."\" de la matière ".$annale->getMatiere()->getNom().".");
+                $notif->setCategory("info");
+                $notif->setIcon("file-text");
+                $notif->setRecipient($annale->getMatiere()->getDepartement().substr($annale->getMatiere()->getAnnee(), 0, 1));
+
+                $em->persist($annale);
+                $em->persist($notif);
+                $em->flush();
+                
+                $request->getSession()->getFlashBag()->add('info', 'L\'annale a bien été mise à jour.');
+                return $this->redirectToRoute('matiereDetails', array(
+                    'id' => $annale->getMatiere()->getId(),
+                    'dpt' => $annale->getMatiere()->getDepartement(),
+                    'annee' => $annale->getMatiere()->getAnnee()
+                ));
+            }
+        }
+
+		return $this->render('app/forms/form_annale.html.twig', array(
+            'form'  => $form->createView(),
+            'id' => $id,
+            'subject' => $annale->getSubject()
+		));
+    }
+
+    /**
+    * @Route("/annale/delete/{id}", name="annaleDelete", requirements={"id"="\d+"})
+    */
+    public function deleteAnnale(Request $request, $id)
+	{
+        $em = $this->getDoctrine()->getManager();
+		$annale = $em->getRepository("App:Annale")->find($id);
+        
+        if ($annale == null) {
+			throw new NotFoundHttpException("Cette annale n'existe pas.");
+		}
+
+        $form = $this->get('form.factory')->create();
+        
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            $submittedToken = $request->request->get('token');
+			if ($this->isCsrfTokenValid('delete-item', $submittedToken)) {
+                $notif = new Notification();
+                $notif->setMessage($this->getUser()->getName()." a supprimé l'annale \"".$annale->getSubject()."\" de la matière ".$annale->getMatiere()->getNom().".");
+                $notif->setCategory("danger");
+                $notif->setIcon("file-text");
+                $notif->setRecipient($annale->getMatiere()->getDepartement().substr($annale->getMatiere()->getAnnee(), 0, 1));
+
+                $em->remove($annale);
+                $em->persist($notif);
+                $em->flush();
+                
+                $request->getSession()->getFlashBag()->add('info', 'L\'annale a bien été supprimée.');
+            }
+            else{
+				$request->getSession()->getFlashBag()->add('danger', 'Une erreur est survenue.');
+			}
+        }
+
+		return $this->redirectToRoute('matiereDetails', array(
+            'id' => $annale->getMatiere()->getId(),
+            'dpt' => $annale->getMatiere()->getDepartement(),
+            'annee' => $annale->getMatiere()->getAnnee()
+        ));
     }
     
     /**

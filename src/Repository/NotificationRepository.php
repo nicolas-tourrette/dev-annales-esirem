@@ -45,6 +45,20 @@ class NotificationRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findMyNotificationsNumber($user, $group)
+    {
+        return $this->createQueryBuilder('n')
+            ->select("count(n)")
+            ->andWhere('n.recipient = :groupe')
+            ->orWhere('n.recipient = \'all\'')
+            ->orWhere('n.recipient = :user')
+            ->setParameter('groupe', $group)
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
     // /**
     //  * @return Notification[] Returns an array of Notification objects
     //  */

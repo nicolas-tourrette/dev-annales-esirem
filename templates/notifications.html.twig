@@ -1,32 +1,38 @@
-<div class="header-button-item {% if listNotifications|length > 0 %}has-noti{% endif %} js-item-menu">
-    <i class="zmdi zmdi-notifications"></i>
-    <div class="notifi-dropdown js-dropdown">
-        <div class="notifi__title">
-            <p>Vous avez {{ listNotifications|length }} notification{% if listNotifications|length > 1 %}s{% endif %}.</p>
-        </div>
-        {% for notification in listNotifications %}
-        <div class="notifi__item">
-            <div class="badge-{{ notification.category }} img-cir img-40">
-                <i class="zmdi zmdi-{{ notification.icon }}"></i>
+
+<div class="header-button">
+    <div class="noti-wrap">
+        <div class="noti__item js-item-menu">
+            <i class="zmdi zmdi-notifications"></i>
+            {% if notifNumber > 0 %}<span class="quantity">{% if notifNumber > 5 %}5<sup>+</sup>{% else %}{{ notifNumber }}{% endif %}</span>{% endif %}
+            <div class="notifi-dropdown js-dropdown">
+                <div class="notifi__title">
+                    <p>Vous avez {{ notifNumber }} notification{% if notifNumber > 1 %}s{% endif %}.</p>
+                </div>
+                {% for notification in listNotifications %}
+                <div class="notifi__item">
+                    <div class="badge-{{ notification.category }} img-cir img-40">
+                        <i class="zmdi zmdi-{{ notification.icon }}"></i>
+                    </div>
+                    <div class="content">
+                        <p>{{ notification.message }}</p>
+                        <span class="date">{{ notification.date|date("d/m/Y") }}</span>
+                    </div>
+                </div>
+                {% else %}
+                <div class="notifi__item">
+                    <div class="badge-secondary img-cir img-40">
+                        <i class="zmdi zmdi-notifications-none"></i>
+                    </div>
+                    <div class="content">
+                        <p>Bon travail, aucune notification !</p>
+                        <span class="date">{{ "now"|date("d/m/Y") }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="notifi__footer">
+                    <a href="#">Voir toutes les notifications</a>
+                </div>
             </div>
-            <div class="content">
-                <p>{{ notification.message }}</p>
-                <span class="date">{{ notification.date|date("d/m/Y") }}</span>
-            </div>
-        </div>
-        {% else %}
-        <div class="notifi__item">
-            <div class="badge-secondary img-cir img-40">
-                <i class="zmdi zmdi-notifications-none"></i>
-            </div>
-            <div class="content">
-                <p>Bon travail, aucune notification !</p>
-                <span class="date">{{ "now"|date("d/m/Y") }}</span>
-            </div>
-        </div>
-        {% endfor %}
-        <div class="notifi__footer">
-            <a href="#">Voir toutes les notifications</a>
         </div>
     </div>
 </div>

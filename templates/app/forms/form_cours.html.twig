@@ -3,7 +3,12 @@
 {% extends "index.html.twig" %}
 
 {% block title %}
-Ajouter un cours - {{ parent() }}
+{% if id is defined %}
+Mettre à jour le cours "{{ subject }}"
+{% else %}
+Ajouter un cours
+{% endif %}
+ - {{ parent() }}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -11,9 +16,28 @@ Ajouter un cours - {{ parent() }}
 <li class="list-inline-item seprate">
     <span>/</span>
 </li>
+<li class="list-inline-item">
+    Cours
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+{% if id is defined %}
+<li class="list-inline-item">
+    Mise à jour
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    Cours "{{ subject }}"
+</li>
+{% else %}
 <li class="list-inline-item active">
     Ajouter un cours
 </li>
+{% endif %}
+
 {% endblock %}
 
 {% block body %}
@@ -21,7 +45,13 @@ Ajouter un cours - {{ parent() }}
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <strong class="card-title">Nouveau cours</strong>
+            <strong class="card-title">
+                {% if id is defined %}
+                Édition du cours "{{ subject }}"
+                {% else %}
+                Nouveau cours
+                {% endif %}
+            </strong>
         </div>
         <div class="card-body">
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}

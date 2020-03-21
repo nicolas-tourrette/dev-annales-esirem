@@ -3,7 +3,12 @@
 {% extends "index.html.twig" %}
 
 {% block title %}
-Ajouter une annale - {{ parent() }}
+{% if id is defined %}
+Mettre à jour l'annale "{{ subject }}"
+{% else %}
+Ajouter une annale
+{% endif %}
+ - {{ parent() }}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -11,9 +16,27 @@ Ajouter une annale - {{ parent() }}
 <li class="list-inline-item seprate">
     <span>/</span>
 </li>
+<li class="list-inline-item">
+    Annale
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+{% if id is defined %}
+<li class="list-inline-item">
+    Mise à jour
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    Annale "{{ subject }}"
+</li>
+{% else %}
 <li class="list-inline-item active">
     Ajouter une annale
 </li>
+{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -21,7 +44,13 @@ Ajouter une annale - {{ parent() }}
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <strong class="card-title">Nouvelle annale</strong>
+            <strong class="card-title">
+                {% if id is defined %}
+                Édition de l'annale "{{ subject }}"
+                {% else %}
+                Nouvelle annale
+                {% endif %}
+            </strong>
         </div>
         <div class="card-body">
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
