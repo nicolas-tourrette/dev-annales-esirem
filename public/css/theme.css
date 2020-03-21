@@ -1392,10 +1392,10 @@ section {
     position: absolute;
     display: inline-block;
     top: -4px;
-    right: -7px;
-    height: 15px;
-    width: 15px;
-    line-height: 15px;
+    right: -10px;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
     text-align: center;
     background: #ff4b5a;
     color: #fff;
