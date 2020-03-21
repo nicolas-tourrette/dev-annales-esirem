@@ -30,6 +30,18 @@ class UserController extends AbstractController {
     }
 
     /**
+    * @Route("/notifications", name="notifications")
+    */
+    public function notifications(){
+        $em = $this->getDoctrine()->getManager();
+        $listNotifications = $em->getRepository("App:Notification")->findAllMyNotifications($this->getUser()->getUsername(), $this->getUser()->getUsergroup());
+        
+        return $this->render('app/acc_notifications.html.twig', array(
+            'listNotifications' => $listNotifications
+        ));
+    }
+
+    /**
      * @Route("/annuaire/{page}", name="annuaire", requirements={"page" = "\d+"}, defaults={"page" = 1})
      */
     public function annuaireDisplay($page){

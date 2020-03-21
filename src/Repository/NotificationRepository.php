@@ -59,6 +59,20 @@ class NotificationRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findAllMyNotifications($user, $group)
+    {
+        return $this->createQueryBuilder('n')
+            ->andWhere('n.recipient = :groupe')
+            ->orWhere('n.recipient = \'all\'')
+            ->orWhere('n.recipient = :user')
+            ->setParameter('groupe', $group)
+            ->setParameter('user', $user)
+            ->orderBy('n.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Notification[] Returns an array of Notification objects
     //  */
