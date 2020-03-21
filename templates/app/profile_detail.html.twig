@@ -12,6 +12,12 @@ Compte de {{ user.name }} | {{ parent() }}
     <span>/</span>
 </li>
 <li class="list-inline-item">
+    <a href="{{ path('account') }}">Mon compte</a>
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item">
     <a href="{{ path('annuaire') }}">Annuaire</a>
 </li>
 <li class="list-inline-item seprate">
@@ -31,10 +37,15 @@ Compte de {{ user.name }} | {{ parent() }}
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-2">
-                    <img src="{{ asset(user.profilimage) }}" alt="{{ user.name }}" />
+                    <img src="{{ asset(user.profilimage) }}" alt="{{ user.name }}" width="128px" />
                 </div>
                 <div class="col-lg-8">
-                    <h2 class="title-6 mb-6" style="color: #393939;">{{ user.name }}</h2>
+                    <div style="display: flex;">
+                        <h2 class="title-6 mb-6" style="color: #393939;">{{ user.name }}</h2>
+                        {% if "ROLE_ADMIN" in user.roles or "ROLE_MODERATEUR" in user.roles %}
+                        &nbsp;&nbsp;<i class="title-6 mb-6 fas fa-user-shield" style="color: #28a745;"></i>
+                        {% endif %}
+                    </div>
                     <p>
                         <span style="font-size: 75%;">{% if user.public == true %}{{ user.email }}{% else %}Le mail est privé.{% endif %}</span>
                     </p>
@@ -56,6 +67,9 @@ Compte de {{ user.name }} | {{ parent() }}
                                 </ul>
                             </li>
                         </ul>
+                    </p>
+                    <p>
+                        <a href="{{ path('annuaire') }}" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i>&nbsp;&nbsp;Retour</a>
                     </p>
                 </div>
             </div>

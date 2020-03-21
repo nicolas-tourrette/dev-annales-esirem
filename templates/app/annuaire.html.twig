@@ -11,6 +11,12 @@ Annuaire | {{ parent() }}
 <li class="list-inline-item seprate">
     <span>/</span>
 </li>
+<li class="list-inline-item">
+    <a href="{{ path('account') }}">Mon compte</a>
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
 <li class="list-inline-item active">
     Annuaire
 </li>
@@ -36,7 +42,12 @@ Annuaire | {{ parent() }}
                     <tbody>
                         {% for user in listUsers %}
                         <tr>
-                            <td><a href="{{ path('profileDetails', {'username': user.username}) }}">{{ user.name }}</a></td>
+                            <td>
+                                {% if "ROLE_ADMIN" in user.roles or "ROLE_MODERATEUR" in user.roles %}
+                                <i class="fas fa-user-shield" style="color: #28a745;"></i>
+                                {% endif %}
+                                <a href="{{ path('profileDetails', {'username': user.username}) }}">{{ user.name }}</a>
+                            </td>
                             <td>{% if user.public == true %}{{ user.email }}{% else %}Profil privé{% endif %}</td>
                             <td>{{ user.birthday|date("d/m/Y") }}</td>
                             <td>{{ user.usergroup }}</td>
@@ -69,6 +80,9 @@ Annuaire | {{ parent() }}
                 </li>
             </ul>
             {% endif %}
+            <p style="font-size: x-small; margin-top: 15px;">
+                Le petit badge <i class="fas fa-user-shield" style="color: #28a745;"></i> indique que l'utilisateur est un administrateur ou un modérateur. Ce rôle est confié à certains utilisateurs afin d'assurer des fonctions d'administration ou de modération des contenus publiés sur cette plateforme.
+            </p>
         </div>
     </div>
 </div>
