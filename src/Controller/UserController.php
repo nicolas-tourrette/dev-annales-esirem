@@ -16,6 +16,7 @@ use Twig\Environment;
 use App\Form\UserEditType;
 
 use App\Entity\User;
+use App\Entity\Log;
 
 /**
     * @Route("/account")
@@ -102,10 +103,24 @@ class UserController extends AbstractController {
 			$form->handleRequest($request);
 			if($form->isSubmitted() && $form->isValid()) {
                 $em->persist($user);
+
+                $log = new Log();
+                $log->setLevel("success");
+                $log->setMessage("Compte de l'utilisateur ".$user->getUsername()." mis à jour avec succès.");
+                $em->persist($log);
+
 				$em->flush();
 
 				$request->getSession()->getFlashBag()->add('success', 'Votre compte a bien été mis à jour !');
                 return $this->redirectToRoute('account');
+            }
+            else{
+                $log = new Log();
+                $log->setLevel("danger");
+                $log->setMessage("Échec de la mise à jour du compte de l'utilisateur ".$user->getUsername().".");
+                $em->persist($log);
+
+				$em->flush();
             }
         }
         

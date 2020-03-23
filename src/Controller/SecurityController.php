@@ -26,22 +26,35 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use App\Form\UserType;
 
 use App\Entity\User;
+use App\Entity\Log;
 
 
 class SecurityController extends AbstractController
 {
-	public function login(Request $request, AuthenticationUtils $authenticationUtils)
+    public function login(Request $request, AuthenticationUtils $authenticationUtils)
 	{
-		// Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        $lastUsername = $authenticationUtils->getLastUsername();
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        if($error !== null){
+            $em = $this->getDoctrine()->getManager();
+            $log = new Log();
+            $log->setLevel("danger");
+            $log->setMessage("Échec de la tentative de connexion de l'utilisateur ".$lastUsername." : ".$error->getMessageKey());
+            $em->persist($log);
+            $em->flush();
+        }
+
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
 		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-			return $this->redirectToRoute('index');
-		}
+            return $this->redirectToRoute('index');
+        }
 		
 		return $this->render('Security/login.html.twig', array(
-			'last_username' => $authenticationUtils->getLastUsername(),
-			'error'         => $authenticationUtils->getLastAuthenticationError(),
+			'last_username' => $lastUsername,
+			'error'         => $error
 		));
-	}
+    }
 
 	/**
 	 * @Route("/register", name="register")
@@ -65,7 +78,13 @@ class SecurityController extends AbstractController
 				));
 				$user->setRoles(array("ROLE_USER"));
 
-				$em->persist($user);
+                $em->persist($user);
+
+                $log = new Log();
+                $log->setLevel("success");
+                $log->setMessage("Création du compte de l'utilisateur ".$user->getUsername()." effectuée avec succès.");
+                $em->persist($log);
+
 				$em->flush();
 
 				return $this->redirectToRoute('login', array('last_username' => $user->getUsername()));
@@ -111,6 +130,12 @@ class SecurityController extends AbstractController
             $user->setToken($tokenGenerator->generateToken());
             // enregistrement de la date de création du token
             $user->setPasswordRequestedAt(new \Datetime());
+
+            $log = new Log();
+            $log->setLevel("info");
+            $log->setMessage("Perte du mot de passe par l'utilisateur ".$user->getUsername().".");
+            $em->persist($log);
+
             $em->flush();
 
             $message = new TemplatedEmail();
@@ -163,12 +188,18 @@ class SecurityController extends AbstractController
      */
     public function resettingPassword(User $user, $token, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $em = $this->getDoctrine()->getManager();
         // interdit l'accès à la page si:
         // le token associé au membre est null
         // le token enregistré en base et le token présent dans l'url ne sont pas égaux
         // le token date de plus de 24h
         if ($user->getToken() === null || $token !== $user->getToken() || !$this->isRequestInTime($user->getPasswordRequestedAt()))
         {
+            $log = new Log();
+            $log->setLevel("danger");
+            $log->setMessage("Échec de la récupération de mot de passe de l'utilisateur ".$user->getUsername()." : token invalide.");
+            $em->persist($log);
+            $em->flush();
             throw new AccessDeniedHttpException('Token invalide.');
         }
 
@@ -193,7 +224,6 @@ class SecurityController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-			dump($form->getData());
             $user->setPassword($passwordEncoder->encodePassword(
 				$user,
 				$form->getData()['password']
@@ -202,9 +232,14 @@ class SecurityController extends AbstractController
             // réinitialisation du token à null pour qu'il ne soit plus réutilisable
             $user->setToken(null);
             $user->setPasswordRequestedAt(null);
-
-            $em = $this->getDoctrine()->getManager();
+            
             $em->persist($user);
+
+            $log = new Log();
+            $log->setLevel("success");
+            $log->setMessage("Mot de passe de l'utilisateur ".$user->getUsername()." modifié avec succès.");
+            $em->persist($log);
+
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('success', "Votre mot de passe a été réinitialisé.");

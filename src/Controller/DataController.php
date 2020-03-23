@@ -16,6 +16,7 @@ use App\Entity\Matiere;
 use App\Entity\Cours;
 use App\Entity\Annale;
 use App\Entity\Notification;
+use App\Entity\Log;
 
 use App\Form\MatiereType;
 use App\Form\CoursType;
@@ -39,6 +40,12 @@ class DataController extends AbstractController {
 			$form->handleRequest($request);
 			if ($form->isSubmitted() && $form->isValid()) {
                 $em->persist($matiere);
+
+                $log = new Log();
+                $log->setLevel("success");
+                $log->setMessage("La matière ".$matiere->getNom()." a été créée avec succès par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+
                 $em->flush();
                 
                 $request->getSession()->getFlashBag()->add('info', 'La matière a bien été ajoutée.');
@@ -47,6 +54,13 @@ class DataController extends AbstractController {
                     'dpt' => $matiere->getDepartement(),
                     'annee' => $matiere->getAnnee()
                 ));
+            }
+            else{
+                $log = new Log();
+                $log->setLevel("danger");
+                $log->setMessage("Échec de la création de la matière ".$matiere->getNom()." par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+                $em->flush();
             }
         }
 
@@ -76,6 +90,12 @@ class DataController extends AbstractController {
 
                 $em->persist($cours);
                 $em->persist($notif);
+
+                $log = new Log();
+                $log->setLevel("success");
+                $log->setMessage("Le cours ".$cours->getSubject()." a été créé avec succès par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+
                 $em->flush();
                 
                 $request->getSession()->getFlashBag()->add('info', 'Le cours bien été ajouté.');
@@ -84,6 +104,13 @@ class DataController extends AbstractController {
                     'dpt' => $cours->getMatiere()->getDepartement(),
                     'annee' => $cours->getMatiere()->getAnnee()
                 ));
+            }
+            else{
+                $log = new Log();
+                $log->setLevel("danger");
+                $log->setMessage("Échec de la création du cours ".$cours->getSubject()." par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+                $em->flush();
             }
         }
 
@@ -117,6 +144,12 @@ class DataController extends AbstractController {
 
                 $em->persist($cours);
                 $em->persist($notif);
+
+                $log = new Log();
+                $log->setLevel("success");
+                $log->setMessage("Le cours ".$cours->getSubject()." a été mis à jour avec succès par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+
                 $em->flush();
                 
                 $request->getSession()->getFlashBag()->add('info', 'Le cours bien été mis à jour.');
@@ -125,6 +158,13 @@ class DataController extends AbstractController {
                     'dpt' => $cours->getMatiere()->getDepartement(),
                     'annee' => $cours->getMatiere()->getAnnee()
                 ));
+            }
+            else{
+                $log = new Log();
+                $log->setLevel("danger");
+                $log->setMessage("Échec de la mise à jour du cours ".$cours->getSubject()." par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+                $em->flush();
             }
         }
 
@@ -150,6 +190,12 @@ class DataController extends AbstractController {
             $notif->setRecipient("ROLE_ADMIN");
 
             $em->persist($notif);
+
+            $log = new Log();
+            $log->setLevel("danger");
+            $log->setMessage("Échec de la suppression du cours ".$cours->getSubject()." par l'utilisateur ".$this->getUser()->getUsername()." sans y être autorisé.");
+            $em->persist($log);
+
             $em->flush();
 
 			throw new AccessDeniedException('Vous n\'avez pas l\'autorisation d\'effectuer cette action ! Un administrateur en est averti.');
@@ -175,11 +221,23 @@ class DataController extends AbstractController {
 
                 $em->remove($cours);
                 $em->persist($notif);
+
+                $log = new Log();
+                $log->setLevel("success");
+                $log->setMessage("Le cours ".$cours->getSubject()." a été supprimé avec succès par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+
                 $em->flush();
                 
                 $request->getSession()->getFlashBag()->add('info', 'Le cours a bien été supprimé.');
             }
             else{
+                $log = new Log();
+                $log->setLevel("danger");
+                $log->setMessage("Échec de la suppression du cours ".$cours->getSubject()." par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+                $em->flush();
+
 				$request->getSession()->getFlashBag()->add('danger', 'Une erreur est survenue.');
 			}
         }
@@ -212,6 +270,12 @@ class DataController extends AbstractController {
 
                 $em->persist($annale);
                 $em->persist($notif);
+
+                $log = new Log();
+                $log->setLevel("success");
+                $log->setMessage("L'annale ".$annale->getSubject()." a été créée avec succès par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+
                 $em->flush();
                 
                 $request->getSession()->getFlashBag()->add('info', 'L\'annale a bien été ajoutée.');
@@ -220,6 +284,13 @@ class DataController extends AbstractController {
                     'dpt' => $annale->getMatiere()->getDepartement(),
                     'annee' => $annale->getMatiere()->getAnnee()
                 ));
+            }
+            else{
+                $log = new Log();
+                $log->setLevel("danger");
+                $log->setMessage("Échec de la création de l'annale ".$annale->getSubject()." par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+                $em->flush();
             }
         }
 
@@ -253,6 +324,12 @@ class DataController extends AbstractController {
 
                 $em->persist($annale);
                 $em->persist($notif);
+
+                $log = new Log();
+                $log->setLevel("success");
+                $log->setMessage("L'annale ".$annale->getSubject()." a été mise à jour avec succès par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+
                 $em->flush();
                 
                 $request->getSession()->getFlashBag()->add('info', 'L\'annale a bien été mise à jour.');
@@ -261,6 +338,13 @@ class DataController extends AbstractController {
                     'dpt' => $annale->getMatiere()->getDepartement(),
                     'annee' => $annale->getMatiere()->getAnnee()
                 ));
+            }
+            else{
+                $log = new Log();
+                $log->setLevel("danger");
+                $log->setMessage("Échec de la mise à jour de l'annale ".$annale->getSubject()." par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+                $em->flush();
             }
         }
 
@@ -286,6 +370,12 @@ class DataController extends AbstractController {
             $notif->setRecipient("ROLE_ADMIN");
 
             $em->persist($notif);
+
+            $log = new Log();
+            $log->setLevel("danger");
+            $log->setMessage("Échec de la mise à jour de l'annale ".$annale->getSubject()." par l'utilisateur ".$this->getUser()->getUsername()." sans y être autorisé.");
+            $em->persist($log);
+
             $em->flush();
             
 			throw new AccessDeniedException('Vous n\'avez pas l\'autorisation d\'effectuer cette action ! Un administrateur en est averti.');
@@ -311,11 +401,23 @@ class DataController extends AbstractController {
 
                 $em->remove($annale);
                 $em->persist($notif);
+
+                $log = new Log();
+                $log->setLevel("success");
+                $log->setMessage("L'annale ".$annale->getSubject()." a été supprimée avec succès par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+
                 $em->flush();
                 
                 $request->getSession()->getFlashBag()->add('info', 'L\'annale a bien été supprimée.');
             }
             else{
+                $log = new Log();
+                $log->setLevel("danger");
+                $log->setMessage("Échec de la suppression de l'annale ".$annale->getSubject()." par l'utilisateur ".$this->getUser()->getUsername().".");
+                $em->persist($log);
+                $em->flush();
+
 				$request->getSession()->getFlashBag()->add('danger', 'Une erreur est survenue.');
 			}
         }

@@ -72,10 +72,10 @@
                                 </button>
                             </div>
                             {% endfor %}
-                            <form action="{{ path('login_check') }}" method="post">
+                            <form action="{{ path('login') }}" method="post">
                                 <div class="form-group">
                                     <label>Identifiant ENT</label>
-                                    <input class="au-input au-input--full" type="text" id="username" name="_username" placeholder="ab123456" maxlength="8"{% if app.request.query is defined %} value="{{ app.request.query.get('last_username') }}"{% endif %}{% if _security.last_username is defined %} value="{{ _security.last_username }}"{% endif %}>
+                                    <input class="au-input au-input--full" type="text" id="username" name="_username" placeholder="ab123456" maxlength="8"{% if app.request.query is defined %} value="{{ app.request.query.get('last_username') }}"{% else %} value="{{ last_username }}"{% endif %}>
                                 </div>
                                 <div class="form-group">
                                     <label>Mot de passe</label>
