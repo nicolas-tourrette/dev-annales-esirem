@@ -1,0 +1,241 @@
+{# templates/admin/home.html.twig #}
+
+{% extends "index.html.twig" %}
+
+{% block title %}
+Console administrateur | {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="/css/form.css" rel="stylesheet" media="all">
+{% endblock %}
+
+{% block breadcrumb %}
+{{ parent() }}
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item">
+    Administration
+</li>
+<li class="list-inline-item seprate">
+    <span>/</span>
+</li>
+<li class="list-inline-item active">
+    Console
+</li>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-12" style="margin-bottom: 25px;">
+    <div class="overview-wrap">
+        <h2 class="title-1">Console administrateur</h2>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+			<div class="overview-wrap">
+				<strong class="card-title">Les logs</strong>
+				<form action="{{ path('logPurger') }}" method="POST">
+					<input type="hidden" name="token" value="{{ csrf_token('purge-log') }}" />
+					<button class="au-btn-sm au-btn-icon au-btn--blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Purger le journal" type="submit" name="purgeButton">
+						<i class="zmdi zmdi-delete"></i> Purger
+					</button>
+				</form>
+			</div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+				<span style="font-family: monospace; font-size:75%;">
+				{% for log in listLogs %}
+				{{ log.date|date("d/m/Y H:i:s") }} - <span class="badge badge-{{ log.level }}">{% if log.level == "danger" %}FAILURE{% else %}{{ log.level|upper }}{% endif %}</span> - {{ log.message }}<br>
+				{% endfor %}
+				</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+			<strong class="card-title">Actions d'administration</strong>
+        </div>
+        <div class="card-body">
+			<div class="default-tab">
+				<nav>
+					<div class="nav nav-tabs" id="nav-tab" role="tablist">
+						<a class="nav-item nav-link active show" id="nav-notif-tab" data-toggle="tab" href="#nav-notif" role="tab"
+							aria-controls="nav-notif" aria-selected="false">Envoi de notifications</a>
+						<a class="nav-item nav-link" id="nav-grant-tab" data-toggle="tab" href="#nav-grant"
+							role="tab" aria-controls="nav-grant" aria-selected="true">Privilèges</a>
+						<a class="nav-item nav-link" id="nav-globalmail-tab" data-toggle="tab" href="#nav-globalmail" role="tab"
+							aria-controls="nav-globalmail" aria-selected="false">Envoi d'un e-mail global</a>
+					</div>
+				</nav>
+				<div class="tab-content pl-3 pt-2" id="nav-tabContent">
+					<div class="tab-pane fade active show" id="nav-notif" role="tabpanel" aria-labelledby="nav-notif-tab">
+						<h4 style="color: #555;">Envoi d'une notification à un groupe ou à un utilisateur</h4>
+						<p>
+							{{ form_start(formEnvoiNotifications, {'attr': {'class': 'form-horizontal'}}) }}
+							{% if form_errors(formEnvoiNotifications) %}
+							<div class="form-group">
+								<div class="alert au-alert-danger alert-dismissible fade show au-alert" role="alert" style="margin-bottom: 20px;">
+									<i class="zmdi zmdi-alert-triangle"></i>
+									<span class="content"><strong>Une erreur s'est produite !</strong>
+										{{ form_errors(formEnvoiNotifications) }}
+									</span>
+									<button class="close" type="button" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">
+											<i class="zmdi zmdi-close-circle"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+							{% endif %}
+
+							<div class="form-group">
+								{{ form_label(formEnvoiNotifications.recipient) }}
+								{{ form_errors(formEnvoiNotifications.recipient) }}
+								{{ form_widget(formEnvoiNotifications.recipient) }}
+							</div>
+
+							<div class="form-group">
+								{{ form_label(formEnvoiNotifications.message) }}
+								{{ form_errors(formEnvoiNotifications.message) }}
+								{{ form_widget(formEnvoiNotifications.message) }}
+							</div>
+
+							<div class="form-group">
+								{{ form_label(formEnvoiNotifications.icon) }}
+								{{ form_errors(formEnvoiNotifications.icon) }}
+								{{ form_widget(formEnvoiNotifications.icon) }}
+							</div>
+
+							<div class="form-group">
+								{{ form_label(formEnvoiNotifications.category) }}
+								{{ form_errors(formEnvoiNotifications.category) }}
+								{{ form_widget(formEnvoiNotifications.category) }}
+							</div>
+
+							{{ form_rest(formEnvoiNotifications) }}
+						</p>
+					</div>
+					<div class="tab-pane fade" id="nav-grant" role="tabpanel" aria-labelledby="nav-grant-tab">
+						<h4 style="color: #555;">Régler les privilèges d'un utilisateur</h4>
+						<p>
+							{{ form_start(formGrantUser, {'attr': {'class': 'form-horizontal'}}) }}
+							{% if form_errors(formGrantUser) %}
+							<div class="form-group">
+								<div class="alert au-alert-danger alert-dismissible fade show au-alert" role="alert"
+									style="margin-bottom: 20px;">
+									<i class="zmdi zmdi-alert-triangle"></i>
+									<span class="content"><strong>Une erreur s'est produite !</strong>
+										{{ form_errors(formGrantUser) }}
+									</span>
+									<button class="close" type="button" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">
+											<i class="zmdi zmdi-close-circle"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+							{% endif %}
+						
+							<div class="form-group">
+								{{ form_label(formGrantUser.username) }}
+								{{ form_errors(formGrantUser.username) }}
+								{{ form_widget(formGrantUser.username) }}
+							</div>
+						
+							<div class="form-group">
+								{{ form_label(formGrantUser.role) }}
+								{{ form_errors(formGrantUser.role) }}
+								{{ form_widget(formGrantUser.role) }}
+							</div>
+						
+							{{ form_rest(formGrantUser) }}
+						</p>
+					</div>
+					<div class="tab-pane fade" id="nav-globalmail" role="tabpanel" aria-labelledby="nav-globalmail-tab">
+						<h4 style="color: #555;">Envoyer un e-mail à tous les utilisateurs</h4>
+						<p>
+							{{ form_start(formEmail, {'attr': {'class': 'form-horizontal'}}) }}
+							{% if form_errors(formEmail) %}
+							<div class="form-group">
+								<div class="alert au-alert-danger alert-dismissible fade show au-alert" role="alert"
+									style="margin-bottom: 20px;">
+									<i class="zmdi zmdi-alert-triangle"></i>
+									<span class="content"><strong>Une erreur s'est produite !</strong>
+										{{ form_errors(formEmail) }}
+									</span>
+									<button class="close" type="button" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">
+											<i class="zmdi zmdi-close-circle"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+							{% endif %}
+						
+							<div class="form-group">
+								{{ form_label(formEmail.subject) }}
+								{{ form_errors(formEmail.subject) }}
+								{{ form_widget(formEmail.subject) }}
+							</div>
+						
+							<div class="form-group">
+								{{ form_label(formEmail.text) }}
+								{{ form_errors(formEmail.text) }}
+								{{ form_widget(formEmail.text) }}
+							</div>
+						
+							{{ form_rest(formEmail) }}
+						</p>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
+	style="display: none;" aria-hidden="true">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title" id="smallmodalLabel" style="color: #fff;">Purge du journal</h5>
+			</div>
+			<div class="modal-body">
+				<p>
+					Êtes-vous certain de vouloir vider le journal ? Cette action est irréversible !
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+				<button type="button" class="btn btn-danger" id="purge">Confirmer</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script type="text/javascript">
+	$('button[name="purgeButton"]').on('click', function (e) {
+		var $form = $(this).closest('form');
+		e.preventDefault();
+		$('#confirm').modal({
+			backdrop: 'static',
+			keyboard: false
+		})
+			.on('click', '#purge', function (e) {
+				$form.trigger('submit');
+			});
+	});
+</script>
+{% endblock %}

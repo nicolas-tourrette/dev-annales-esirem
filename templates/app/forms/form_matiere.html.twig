@@ -6,6 +6,11 @@
 Ajouter une matière - {{ parent() }}
 {% endblock %}
 
+{% block stylesheets %}
+{{ parent() }}
+<link href="/css/form.css" rel="stylesheet" media="all">
+{% endblock %}
+
 {% block breadcrumb %}
 {{ parent() }}
 <li class="list-inline-item seprate">

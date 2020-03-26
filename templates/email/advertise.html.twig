@@ -1,0 +1,33 @@
+{# email/advertise.html.twig #}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Annales ESIREM - {{ subject }}</title>
+</head>
+
+<body>
+    <p style="text-align: center;">
+        <img src="https://esirem.u-bourgogne.fr/wp-content/uploads/2019/12/cropped-logo-couleur-site-web.png">
+    </p>
+    <p>
+        Bonjour {{ email.toName }},
+    </p>
+    {{ text|raw }}
+    <p>
+        Bien cordialement,<br>
+        Nicolas TOURRETTE, responsable du projet
+    </p>
+    <p>
+        Connectez-vous sur <a href="https://esirem.nicolas-t.ovh" target="_blank">Annales ESIREM</a> pour consulter les ressources disponibles.
+    </p>
+    <p style="font-family: monospace;">
+        --<br>
+        Ce message vous a été envoyé automatiquement. Merci de ne pas y répondre.<br>
+        This email has been sent automatically. Please do not reply to it.
+    </p>
+</body>
+
+</html>

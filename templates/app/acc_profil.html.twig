@@ -21,7 +21,7 @@ Mon compte | {{ parent() }}
     <div class="overview-wrap">
         <h2 class="title-1">MON COMPTE</h2>
         <a class="au-btn au-btn-icon au-btn--blue" href="{{ path('annuaire') }}">
-            <i class="zmdi zmdi-accounts-list-alt"></i>Consulter l'annuaire
+            <i class="zmdi zmdi-accounts-list-alt"></i> Consulter l'annuaire
         </a>
     </div>
 </div>
@@ -33,7 +33,7 @@ Mon compte | {{ parent() }}
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-2">
-                    <img src="{{ asset(app.user.profilimage) }}" alt="{{ app.user.name }}" />
+                    <img src="{{ asset(app.user.profilimage) }}" alt="{{ app.user.name }}" width="128px" style="border-radius: 50%;" />
                 </div>
                 <div class="col-lg-8">
                     <h2 class="title-6 mb-6" style="color: #393939;">{{ app.user.name }}</h2>

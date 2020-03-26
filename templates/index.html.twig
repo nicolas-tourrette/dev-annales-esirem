@@ -133,7 +133,7 @@
                                         </div>
                                         {% if is_granted('ROLE_ADMIN') %}
                                         <div class="account-dropdown__item account-dropdown__separated">
-                                            <a href="{#{ path('') }#}">
+                                            <a href="{{ path('adminHome') }}">
                                                 <i class="zmdi zmdi-key"></i>Console administrateur</a>
                                         </div>
                                         {% endif %}
