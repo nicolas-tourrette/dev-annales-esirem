@@ -35,6 +35,7 @@ class SecurityController extends AbstractController
 	{
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
+        $authFull = $request->query->get('authFull');
 
         if($error !== null){
             $em = $this->getDoctrine()->getManager();
@@ -46,7 +47,7 @@ class SecurityController extends AbstractController
         }
 
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
-		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED') && $referer = $request->headers->get('referer') == null) {
             return $this->redirectToRoute('index');
         }
 		

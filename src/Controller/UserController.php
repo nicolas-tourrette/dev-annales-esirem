@@ -9,8 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Twig\Environment;
 
 use App\Form\UserEditType;
@@ -90,7 +90,7 @@ class UserController extends AbstractController {
     /**
      * @Route("/parametres", name="parameters")
      */
-    public function parametresEdit(Request $request, UserPasswordEncoderInterface $passwordEncoder){
+    public function parametresEdit(Request $request){
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository("App:User")->find($this->getUser()->getUsername());
         $form = $this->createForm(UserEditType::class, $user);

@@ -124,6 +124,10 @@ class DataController extends AbstractController {
     */
     public function editCours(Request $request, $id)
 	{
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+			return $this->redirectToRoute('login', array('last_username' => $this->getUser()->getUsername()));
+        }
+
         $em = $this->getDoctrine()->getManager();
         $cours = $em->getRepository("App:Cours")->find($id);
         
@@ -180,6 +184,10 @@ class DataController extends AbstractController {
     */
     public function deleteCours(Request $request, $id)
 	{
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+			return $this->redirectToRoute('login', array('last_username' => $this->getUser()->getUsername()));
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         if(!$this->get('security.authorization_checker')->isGranted('ROLE_MODERATEUR')) {
@@ -304,6 +312,10 @@ class DataController extends AbstractController {
     */
     public function editAnnale(Request $request, $id)
 	{
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+			return $this->redirectToRoute('login', array('last_username' => $this->getUser()->getUsername()));
+        }
+
         $em = $this->getDoctrine()->getManager();
 		$annale = $em->getRepository("App:Annale")->find($id);
         
@@ -360,6 +372,10 @@ class DataController extends AbstractController {
     */
     public function deleteAnnale(Request $request, $id)
 	{
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+			return $this->redirectToRoute('login', array('last_username' => $this->getUser()->getUsername()));
+        }
+        
         $em = $this->getDoctrine()->getManager();
 
         if(!$this->get('security.authorization_checker')->isGranted('ROLE_MODERATEUR')) {
