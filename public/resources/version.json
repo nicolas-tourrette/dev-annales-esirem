@@ -1,5 +1,20 @@
 [
     {
+        "number": "3.1.0",
+        "build": 2,
+        "date": "Apr 1 2020",
+        "items": [
+            {
+                "type": "FIXED",
+                "content": "Passage à Symfony 5.0.7 pour le correctif de sécurité"
+            },
+            {
+                "type": "IMPROVED",
+                "content": "Version publique"
+            }
+        ]
+    },
+    {
         "number": "3.0.0",
         "build": 41,
         "date": "Mar 21 2020",

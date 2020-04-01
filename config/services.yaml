@@ -48,6 +48,6 @@ services:
         class: App\Beta\BetaListener
         arguments:
             - "@app.beta.html_adder"
-            - "2020-04-01"
+            - "2020-04-15"
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: processBeta }
