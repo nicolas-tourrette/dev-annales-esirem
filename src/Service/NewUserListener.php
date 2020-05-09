@@ -24,7 +24,7 @@ class NewUserListener
     {
         $entity = $args->getObject();
 
-        // On ne veut envoyer un email que pour les entités Application
+        // On ne veut envoyer un email que pour les entités User
         if ($entity instanceof User) {
             $this->applicationMailer->sendNotificationNewUser($entity);
         }

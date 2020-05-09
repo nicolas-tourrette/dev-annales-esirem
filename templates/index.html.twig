@@ -39,7 +39,7 @@
             }
             else {
                 var m; var o; var n;
-                document.write('<a style="text-decoration: none;" href="' + 'mailto:' + m + '@' + o + '.' + n + '">' + m + '@' + o + '.' + n + ' <img src="https://svgsilh.com/svg/303617-4caf50.svg" width="14" height="14"></a>');
+                document.write('<a style="text-decoration: none;" href="' + 'mailto:' + m + '@' + o + '.' + n + '">' + m + '@' + o + '.' + n + ' <i class="fas fa-lock text-success"></i></a>');
             }
         }
     </script>
@@ -244,16 +244,6 @@
                     </div>
                     {% endfor %}
                     <!-- ALERT-->
-                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
-                        <i class="zmdi zmdi-alert-circle"></i>
-                        <span class="content">Les phases de test ont été concluantes, merci aux quatre étudiants qui ont testé pour les autres la plateforme. Ainsi, elle sera ouvert dès le 1<sup>er</sup> avril 2020 ! Vous pourrez créer votre compte à partir de cette date.<br><strong>NB</strong> : vos comptes ne seront pas récupérés car il y a beaucoup trop de comptes doublons/fantômes.<br>Les données seront progressivement ajoutées à partir de la v2.</span>
-                        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">
-                                <i class="zmdi zmdi-close-circle"></i>
-                            </span>
-                        </button>
-                    </div>
-                    <!-- END ALERT-->
                     {% for message in app.session.flashbag.get('success') %}
                     <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per mb-3" role="alert">
                         <i class="zmdi zmdi-check"></i>
@@ -298,6 +288,7 @@
                         </button>
                     </div>
                     {% endfor %}
+                    <!-- END ALERT-->
                 </div>
             </section>
             {% endblock %}

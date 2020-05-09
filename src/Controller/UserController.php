@@ -55,7 +55,7 @@ class UserController extends AbstractController {
         if ($page < 1) {
             throw $this->createNotFoundException('Page "'.$page.'" inexistante.');
         }
-                
+        
         $em = $this->getDoctrine()->getManager();
         $listUsers = $em->getRepository("App:User")->getUsers($page, $nbPerPage);
 

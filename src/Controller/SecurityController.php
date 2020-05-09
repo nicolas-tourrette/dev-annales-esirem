@@ -41,7 +41,7 @@ class SecurityController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $log = new Log();
             $log->setLevel("danger");
-            $log->setMessage("Échec de la tentative de connexion de l'utilisateur ".$lastUsername." : ".$error->getMessageKey());
+            $log->setMessage("Échec de la tentative de connexion de l'utilisateur ".$lastUsername." depuis l'IP ".$this->getIp()." : ".$error->getMessageKey());
             $em->persist($log);
             $em->flush();
         }
@@ -83,7 +83,7 @@ class SecurityController extends AbstractController
 
                 $log = new Log();
                 $log->setLevel("success");
-                $log->setMessage("Création du compte de l'utilisateur ".$user->getUsername()." effectuée avec succès.");
+                $log->setMessage("Création du compte de l'utilisateur ".$user->getUsername()." effectuée avec succès depuis l'IP ".$this->getIp().".");
                 $em->persist($log);
 
 				$em->flush();
@@ -134,7 +134,7 @@ class SecurityController extends AbstractController
 
             $log = new Log();
             $log->setLevel("info");
-            $log->setMessage("Perte du mot de passe par l'utilisateur ".$user->getUsername().".");
+            $log->setMessage("Perte du mot de passe par l'utilisateur ".$user->getUsername()." depuis l'IP ".$this->getIp().".");
             $em->persist($log);
 
             $em->flush();
@@ -198,7 +198,7 @@ class SecurityController extends AbstractController
         {
             $log = new Log();
             $log->setLevel("danger");
-            $log->setMessage("Échec de la récupération de mot de passe de l'utilisateur ".$user->getUsername()." : token invalide.");
+            $log->setMessage("Échec de la récupération de mot de passe de l'utilisateur ".$user->getUsername()." depuis l'IP ".$this->getIp()." : token invalide.");
             $em->persist($log);
             $em->flush();
             throw new AccessDeniedHttpException('Token invalide.');
@@ -238,7 +238,7 @@ class SecurityController extends AbstractController
 
             $log = new Log();
             $log->setLevel("success");
-            $log->setMessage("Mot de passe de l'utilisateur ".$user->getUsername()." modifié avec succès.");
+            $log->setMessage("Mot de passe de l'utilisateur ".$user->getUsername()." modifié avec succès depuis l'IP ".$this->getIp().".");
             $em->persist($log);
 
             $em->flush();
@@ -252,5 +252,18 @@ class SecurityController extends AbstractController
             'form' => $form->createView()
         ]);
         
+    }
+
+    private function getIp(){
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }
+        elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        else{
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
     }
 }

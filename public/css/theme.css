@@ -14761,3 +14761,7 @@ div.version .item.item-fixed{
 div.version .item.item-improved{
     background-color: #0366d6 !important;
 }
+
+div.version .item.item-updated{
+    background-color: #00CAFF !important;
+}
