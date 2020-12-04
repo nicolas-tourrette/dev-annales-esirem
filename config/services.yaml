@@ -3,9 +3,6 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-imports:
-    - { resource: 'config.yaml'}
-
 parameters:
 
 services:
@@ -17,42 +14,18 @@ services:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
-        resource: '../src/Controller'
+        resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
-    app.email.application_mailer:
-        class: App\Service\ApplicationMailer
-        arguments:
-            - "@mailer"
-    
-    app.service.application_creation:
-        class: App\Service\NewUserListener
-        arguments:
-            - "@app.email.application_mailer"
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
-
-    app.beta.html_adder:
-        class: App\Beta\BetaHTMLAdder
-
-    app.beta.listener:
-        class: App\Beta\BetaListener
-        arguments:
-            - "@app.beta.html_adder"
-            - "2020-04-15"
-        tags:
-            - { name: kernel.event_listener, event: kernel.response, method: processBeta }
-
-    app.service.logged_user:
-        class: App\Service\LoggedUser
-        tags:
-            - { name: kernel.event_listener, event: security.interactive_login }

@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Annale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Annale|null find($id, $lockMode = null, $lockVersion = null)
