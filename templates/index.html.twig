@@ -19,18 +19,18 @@
 
     <!-- Fontfaces CSS-->
     {% block stylesheets %}
-    <link href="/css/font-face.css" rel="stylesheet" media="all">
+    <link href="{{ asset('/css/font-face.css') }}" rel="stylesheet" media="all">
     <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
     
     <!-- Bootstrap CSS-->
-    <link href="/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="{{ asset('vendor/bootstrap-4.1/bootstrap.min.css') }}" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
-    <link href="/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="{{ asset('vendor/animsition/animsition.min.css') }}" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="/css/theme.css" rel="stylesheet" media="all">
+    <link href="{{ asset('css/theme.css') }}" rel="stylesheet" media="all">
 
     <script type="text/javascript">
         function cryptm(m, o, n) {
@@ -145,7 +145,7 @@
                                 </div>
                                 {% else %}
                                 <div class="image">
-                                    <img src="/img/user.png" alt="Invité" />
+                                    <img src="{{ asset("img/user.png") }}" alt="Invité" />
                                 </div>
                                 <div class="content">
                                     <a class="js-acc-btn" href="#">Invité</a>
@@ -154,7 +154,7 @@
                                     <div class="info clearfix">
                                         <div class="image">
                                             <a href="#">
-                                                <img src="/img/user.png" alt="Invité" />
+                                                <img src="{{ asset("img/user.png") }}" alt="Invité" />
                                             </a>
                                         </div>
                                         <div class="content">
@@ -667,16 +667,16 @@
 
     {% block javascripts %}
     <!-- Jquery JS-->
-    <script src="/vendor/jquery-3.2.1.min.js"></script>
+    <script src="{{ asset('vendor/jquery-3.2.1.min.js') }}"></script>
     <!-- Bootstrap JS-->
-    <script src="/vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <script src="{{ asset('vendor/bootstrap-4.1/popper.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap-4.1/bootstrap.min.js') }}"></script>
     <!-- Vendor JS -->
-    <script src="/vendor/animsition/animsition.min.js"></script>
+    <script src="{{ asset('vendor/animsition/animsition.min.js') }}"></script>
     </script>
 
     <!-- Main JS-->
-    <script src="/js/main.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
     {% endblock %}
 </body>
 
